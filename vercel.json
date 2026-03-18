@@ -1,12 +1,5 @@
 {
   "buildCommand": "npx vite build",
   "outputDirectory": "dist",
-  "framework": null,
-  "routes": [
-    { "src": "/about-us", "dest": "/about-us.html" },
-    { "src": "/driving-school", "dest": "/driving-school.html" },
-    { "src": "/computer-college", "dest": "/computer-college.html" },
-    { "src": "/contact", "dest": "/contact.html" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
+  "framework": null
 }
