@@ -31,12 +31,18 @@
     box-sizing: border-box;
 }
 
+html {
+    /* Base font size explicitly set to 15px (default is 16px)
+       to proportionally reduce all rem-based typography by ~1pt */
+    font-size: 15px;
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--bg-light);
     color: var(--primary-navy); 
     line-height: 1.8;
-    font-size: 1.05rem; /* Reduced slightly per user request */
+    font-size: 1.15rem; /* Restored body relative scaling */
     letter-spacing: 0.3px;
     overflow-x: hidden;
 }
