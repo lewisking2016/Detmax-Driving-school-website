@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Admissions | Detmax Driving School & Computer College</title>
+    <meta name="description" content="Contact Detmax for enrollment inquiries, payments, and support. Get in touch via WhatsApp, Phone, or Email today.">
+    
+    <link rel="stylesheet" href="/src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-contact">
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="logo.jpeg" alt="Detmax Logo" class="loader-logo">
+    </div>
+
+    <div id="app">
+        <div id="navbar-placeholder"></div>
+
+        <main>
+            <header class="page-header bg-navy text-white">
+                <div class="container">
+                    <h1>Contact & Admissions</h1>
+                    <p>Reach out to us for any inquiries or enrollment support.</p>
+                </div>
+            </header>
+
+        <section class="section">
+            <div class="container">
+                <div class="grid-2">
+                    <div class="contact-details">
+                        <h2>Get In Touch</h2>
+                        <div class="contact-card glass mb-20 p-tilt">
+                            <div class="icon-box sm mb-15"><i data-lucide="phone"></i></div>
+                            <h4>Phone</h4>
+                            <p>+254 716 894 174</p>
+                            <p>+254 710 703 752</p>
+                        </div>
+                        <div class="contact-card glass mb-20 p-tilt">
+                            <div class="icon-box sm mb-15"><i data-lucide="mail"></i></div>
+                            <h4>Email</h4>
+                            <p>info@detmaxltd.com</p>
+                        </div>
+                        <div class="contact-card glass p-tilt">
+                            <div class="icon-box sm mb-15"><i data-lucide="map-pin"></i></div>
+                            <h4>Location</h4>
+                            <p>Nairobi, Kenya</p>
+                            <p>P.O BOX 301-00100</p>
+                        </div>
+                    </div>
+                    <div class="glass p-40 no-tilt">
+                        <h2 class="section-title">Send us a Message</h2>
+                        <form action="https://formsubmit.co/info@detmaxltd.com" method="POST" class="enrollment-form">
+                            <!-- FormSubmit Configuration -->
+                            <input type="hidden" name="_next" value="https://detmaxltd.com/thank-you.html">
+                            <input type="hidden" name="_subject" value="New Website Inquiry!">
+                            <input type="hidden" name="_template" value="table">
+                            
+                            <input type="text" name="name" placeholder="Full Name" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                            <input type="email" name="email" placeholder="Email Address">
+                            
+                            <select name="program" required>
+                                <option value="" disabled selected>Select Program of Interest</option>
+                                <option value="Computer College">Computer College (Online)</option>
+                                <option value="Driving School">Driving School (Physical)</option>
+                            </select>
+                            
+                            <textarea name="message" placeholder="Message (Optional)" rows="4"></textarea>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mt-20">Send Inquiry</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section bg-white">
+            <div class="container">
+                <h2 class="section-title text-center">Payment Information</h2>
+                <div class="payment-grid-full mt-50">
+                    <div class="payment-box glass college p-tilt">
+                        <div class="pay-header">
+                            <i data-lucide="monitor"></i>
+                            <h3>Computer College</h3>
+                        </div>
+                        <div class="pay-details">
+                            <div class="pay-row"><span>Paybill</span> <strong>303030</strong></div>
+                            <div class="pay-row"><span>Account</span> <strong>2042375732</strong></div>
+                            <div class="price-pill">4,000 KES</div>
+                        </div>
+                    </div>
+                    <div class="payment-box glass driving p-tilt">
+                        <div class="pay-header">
+                            <i data-lucide="car"></i>
+                            <h3>Driving School</h3>
+                        </div>
+                        <div class="pay-details">
+                            <div class="pay-row"><span>Paybill</span> <strong>522522</strong></div>
+                            <div class="pay-row"><span>Account</span> <strong>1295804689</strong></div>
+                            <div class="price-pill">13,000 KES</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <!-- Floating Actions -->
+    <div class="floating-actions">
+        <a href="https://wa.me/254716894174" class="float-btn btn-whatsapp" target="_blank" title="Chat on WhatsApp">
+            <i data-lucide="message-circle"></i>
+        </a>
+        <button class="float-btn btn-top" id="backToTop" title="Back to Top">
+            <i data-lucide="arrow-up"></i>
+        </button>
+    </div>
+
+    <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
