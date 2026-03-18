@@ -35,8 +35,9 @@ body {
     font-family: var(--font-body);
     background-color: var(--bg-light);
     color: var(--primary-navy); 
-    line-height: 1.8; /* Increased from 1.6 */
-    letter-spacing: 0.3px; /* Slightly more open */
+    line-height: 1.8;
+    font-size: 1.15rem; /* Increased for better visibility */
+    letter-spacing: 0.3px;
     overflow-x: hidden;
 }
 
@@ -47,9 +48,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Navigation */
-.navbar {
+/* Unified Header Container */
+.main-header {
     position: fixed;
-    top: 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+}
+
+.navbar {
+    position: relative;
+    top: 25px; /* Increased spacing */
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -63,7 +73,6 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -170,6 +179,18 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 8px 25px rgba(0, 31, 63, 0.5);
 }
 
+.btn-white {
+    background-color: var(--white);
+    color: var(--primary-navy);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-white:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+    background-color: #f0f0f0;
+}
+
 .btn-navy {
     background-color: var(--primary-navy);
     color: var(--white);
@@ -197,7 +218,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 150px 10% 50px;
+    padding: 200px 10% 50px; /* Increased from 150px */
     text-align: center;
     color: var(--text-light);
 }
@@ -216,8 +237,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: 1.4rem; /* Increased */
+    margin-bottom: 2.5rem; /* Increased */
     opacity: 0.9;
 }
 
@@ -293,7 +314,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Page Headers */
 .page-header {
-    padding: 150px 5% 80px;
+    padding: 200px 5% 80px; /* Increased from 150px */
     text-align: center;
 }
 
@@ -528,7 +549,7 @@ h1, h2, h3, h4, h5, h6 {
     .navbar {
         width: 95%;
         padding: 8px 20px;
-        top: 10px;
+        top: 5px;
     }
     
     .nav-logo {
@@ -569,9 +590,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Increased from 2.5rem */
     color: var(--primary-navy);
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem; /* Increased from 1rem */
     position: relative;
     display: inline-block;
 }
@@ -598,9 +619,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-desc {
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-    max-width: 700px;
+    font-size: 1.25rem; /* Increased from 1.1rem */
+    margin-bottom: 4rem; /* Increased from 3rem */
+    max-width: 800px;
+    line-height: 1.8;
 }
 
 .bg-white { background-color: var(--white); color: var(--primary-navy); }
@@ -879,13 +901,112 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .feature-list-check li {
-    margin-bottom: 5px;
+    margin-bottom: 12px; /* Increased from 5px */
     font-weight: 500;
+    line-height: 1.6;
 }
 
 .feature-list-check li::before {
     content: '★ ';
     color: var(--secondary-red);
+}
+
+/* Pricing Grid (Computer College) */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 30px;
+    align-items: stretch;
+}
+
+.price-hub {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+    border-top: 4px solid var(--primary-navy);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.price-hub:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+.price-hub h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+    margin-top: 10px;
+    color: var(--primary-navy);
+}
+
+.price-hub .highlight {
+    border-top-color: var(--secondary-red);
+}
+
+.price-hub.highlight {
+    border-top-color: var(--secondary-red);
+}
+
+.price-hub.highlight-red {
+    border-top-color: var(--secondary-red);
+    outline: 2px solid var(--secondary-red);
+    outline-offset: 2px;
+}
+
+.price-hub.highlight-navy {
+    border-top-color: var(--primary-navy);
+    background: var(--primary-navy);
+    color: white;
+}
+
+.price-hub.highlight-navy h3,
+.price-hub.highlight-navy li {
+    color: white;
+}
+
+.price-hub.highlight-navy .feature-list-check li::before {
+    color: #ff6b6b;
+}
+
+/* Check List (Why Choose section) */
+.check-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.check-list li {
+    padding: 10px 0 10px 2rem;
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    border-bottom: 1px solid rgba(0,31,63,0.07);
+}
+
+.check-list li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-red);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* Content section title/paragraph gap */
+.content h2,
+.content h3 {
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.content p {
+    margin-bottom: 1.2rem;
+    line-height: 1.9;
+    font-size: 1.1rem;
 }
 
 .ntsa-charges-pill {
@@ -899,8 +1020,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Mini Cards */
 .program-quick-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Improved for 4+ items */
+    gap: 20px;
 }
 
 .p-mini-card {
@@ -1368,7 +1489,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Vision & Mission Grids */
 .vision-mission-grid, .pricing-grid, .payment-grid-full {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Optimized for 4 columns */
     gap: 30px;
 }
 
@@ -1622,4 +1743,82 @@ h1, h2, h3, h4, h5, h6 {
 @media (pointer: fine) {
     /* Optional: uncomment if the user wants purely custom */
     /* body, a, button { cursor: none; } */
+}
+
+/* ==========================================================================
+   ELITE ELECTRONIC BANNER & PROFESSIONAL UI
+   ========================================================================== */
+
+/* Elite Electronic Banner (Ticker) */
+.top-ticker {
+    background: var(--primary-navy);
+    color: white;
+    padding: 12px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2001; /* Above navbar */
+    border-bottom: 2px solid var(--secondary-red);
+}
+
+.ticker-content {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker-scroll 40s linear infinite;
+    width: max-content;
+}
+
+.ticker-content span {
+    padding-right: 60px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Professional Card Highlight */
+.highlight-red {
+    border: 2px solid var(--secondary-red) !important;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255, 0, 0, 0.15) !important;
+}
+
+.highlight-red .icon-box {
+    background: var(--secondary-red) !important;
+    color: white !important;
+}
+
+.highlight-red .amount {
+    color: var(--secondary-red) !important;
+}
+
+.btn-red {
+    background: var(--secondary-red);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-red:hover {
+    background: #cc0000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .top-ticker {
+        padding: 8px 0;
+    }
+    .ticker-content span {
+        font-size: 0.75rem;
+    }
 }

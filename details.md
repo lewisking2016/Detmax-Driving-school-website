@@ -109,7 +109,7 @@ Quick links to all pages
 
 Phone: +254716894174 | +254710703752
 
-Email: info@detmaxltd.com
+Email: info@detmaxinstitute.co.ke
 
 Address: P.O BOX 301-00100, NAIROBI
 
@@ -411,7 +411,7 @@ We work closely with the Peer Mentors Association of Kenya (PMAK) to reach commu
 Contact Information
 Phone: +254716894174 | +254710703752
 
-Email: info@detmaxltd.com
+Email: info@detmaxinstitute.co.ke
 
 Address: P.O BOX 301-00100, NAIROBI
 
@@ -461,7 +461,7 @@ __________________________________________
 __________________________________________
 
 [SUBMIT INQUIRY]
-Form submits to info@detmaxltd.com and triggers auto-reply with payment instructions
+Form submits to info@detmaxinstitute.co.ke and triggers auto-reply with payment instructions
 
 Payment Details (Prominently Displayed)
 text
@@ -610,6 +610,6 @@ Contact & Admissions - Contact form, payment details, FAQ
 
 
 
-change from denmax drive school and computer collage 
+
 electronic barner 
-profetional package  the 4th collumn 
+
