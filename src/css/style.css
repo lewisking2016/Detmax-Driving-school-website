@@ -36,7 +36,7 @@ body {
     background-color: var(--bg-light);
     color: var(--primary-navy); 
     line-height: 1.8;
-    font-size: 1.15rem; /* Increased for better visibility */
+    font-size: 1.05rem; /* Reduced slightly per user request */
     letter-spacing: 0.3px;
     overflow-x: hidden;
 }
