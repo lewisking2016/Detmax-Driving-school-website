@@ -10,6 +10,7 @@ export default defineConfig({
         driving: resolve(__dirname, 'driving-school.html'),
         computer: resolve(__dirname, 'computer-college.html'),
         contact: resolve(__dirname, 'contact.html'),
+        gallery: resolve(__dirname, 'gallery.html'),
       }
     }
   }
