@@ -107,9 +107,9 @@ CTA: "Apply for Online Classes Today"
 Footer
 Quick links to all pages
 
-Phone: +254716894174 | +254710703752
+Phone: +254 111 379171
 
-Email: info@detmaxinstitute.co.ke
+Email: detmaxltd@gmail.com
 
 Address: P.O BOX 301-00100, NAIROBI
 
@@ -143,12 +143,10 @@ No prior experience needed
 Learn from your phone or computer
 
 Computer Programs Offered
-Program	Duration	Fee	What You'll Learn
-Complete Computer Packages	3 Months	4,000 KES	MS Word, Excel, PowerPoint, Internet, Email, File Management
-Basic Computer Skills	1 Month	1,500 KES	Computer fundamentals, typing, Windows navigation
-Microsoft Office Specialist	2 Months	3,000 KES	Advanced Word, Excel, PowerPoint
-Graphic Design Basics	2 Months	3,500 KES	Canva, basic design principles, image editing
-Digital Skills for Work	1 Month	2,000 KES	Email, Google Workspace, online collaboration, internet safety
+Program	Fee
+Computer packages	5,000 KES
+Advanced computer training	8,000 KES
+Advanced Computer training and coding	13,000 KES
 Program Details (Expandable Cards)
 Complete Computer Packages - Detailed Curriculum
 
@@ -234,9 +232,9 @@ Total: 4,000 KES (One-time payment)
 Payment Information Box
 text
 COMPUTER COLLEGE PAYMENTS
-M-Pesa Paybill: 303030
-Account No: 2042375732
-Amount: 4,000 KES (Full Program)
+M-Pesa: 0119028911
+Paybill: 247247
+Account No: 0300161332168
 Enrollment Form
 Online Intake Form
 
@@ -333,9 +331,9 @@ License Application Process
 Payment Information Box
 text
 DRIVING SCHOOL PAYMENTS
-M-Pesa Paybill: 522522
-Account No: 1295804689
-Complete Course: 13,000 KES
+M-Pesa: 0119028911
+Paybill: 247247
+Account No: 0300161332168
 How to Enroll for Driving
 Register - Pay admission fee (1,000 KES)
 
@@ -409,9 +407,9 @@ Partnerships
 We work closely with the Peer Mentors Association of Kenya (PMAK) to reach communities and provide training opportunities to those who need them most.
 
 Contact Information
-Phone: +254716894174 | +254710703752
+Phone: +254 111 379171
 
-Email: info@detmaxinstitute.co.ke
+Email: detmaxltd@gmail.com
 
 Address: P.O BOX 301-00100, NAIROBI
 
@@ -466,21 +464,12 @@ Form submits to info@detmaxinstitute.co.ke and triggers auto-reply with payment 
 Payment Details (Prominently Displayed)
 text
 ╔══════════════════════════════════════════╗
-║     COMPUTER COLLEGE PAYMENTS            ║
+║     COMPUTER COLLEGE & DRIVING SCHOOL    ║
 ╠══════════════════════════════════════════╣
-║  M-Pesa Paybill: 303030                  ║
-║  Account No: 2042375732                   ║
-║  Full Program Fee: 4,000 KES             ║
-║  Admission Fee Included                   ║
-╚══════════════════════════════════════════╝
-
-╔══════════════════════════════════════════╗
-║     DRIVING SCHOOL PAYMENTS               ║
-╠══════════════════════════════════════════╣
-║  M-Pesa Paybill: 522522                  ║
-║  Account No: 1295804689                   ║
-║  Complete Course: 13,000 KES             ║
-║  Payable in installments                  ║
+║  M-Pesa: 0119028911                      ║
+║  Paybill: 247247                         ║
+║  Account No: 0300161332168               ║
+║  Admissions are ongoing                  ║
 ╚══════════════════════════════════════════╝
 How to Pay Instructions
 For Computer College:

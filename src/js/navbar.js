@@ -3,8 +3,8 @@ export const initNavbarComponent = () => {
     <header class="main-header">
         <div class="top-ticker">
             <div class="ticker-content">
-                <span>🚀 ENROLL NOW FOR ONLINE COMPUTER CLASSES • MS OFFICE SPECIALIST • GRAPHIC DESIGN • DIGITAL SKILLS • NTSA REGISTERED DRIVING SCHOOL • CALL +254114971070 | +1 (801) 319-5465 • STUDY ANYWHERE IN KENYA 🇰🇪 • </span>
-                <span>🚀 ENROLL NOW FOR ONLINE COMPUTER CLASSES • MS OFFICE SPECIALIST • GRAPHIC DESIGN • DIGITAL SKILLS • NTSA REGISTERED DRIVING SCHOOL • CALL +254114971070 | +1 (801) 319-5465 • STUDY ANYWHERE IN KENYA 🇰🇪 • </span>
+                <span>🚀 ENROLL NOW FOR ONLINE COMPUTER CLASSES • COMPUTER PACKAGES • ADVANCED TRAINING • CODING • NTSA REGISTERED DRIVING SCHOOL • CALL +254 111 379171 • STUDY ANYWHERE IN KENYA 🇰🇪 • </span>
+                <span>🚀 ENROLL NOW FOR ONLINE COMPUTER CLASSES • COMPUTER PACKAGES • ADVANCED TRAINING • CODING • NTSA REGISTERED DRIVING SCHOOL • CALL +254 111 379171 • STUDY ANYWHERE IN KENYA 🇰🇪 • </span>
             </div>
         </div>
         <nav class="navbar">
@@ -16,6 +16,7 @@ export const initNavbarComponent = () => {
                 <li><a href="/" id="nav-home">Home</a></li>
                 <li><a href="/computer-college.html" id="nav-college">Computer College</a></li>
                 <li><a href="/driving-school.html" id="nav-driving">Driving School</a></li>
+                <li><a href="/gallery.html" id="nav-gallery">Gallery</a></li>
                 <li><a href="/about-us.html" id="nav-about">About</a></li>
                 <li><a href="/contact.html" id="nav-contact">Contact</a></li>
             </ul>
@@ -34,6 +35,7 @@ export const initNavbarComponent = () => {
         if (currentPath === '/' || currentPath === '/index.html') document.getElementById('nav-home')?.classList.add('active');
         else if (currentPath.includes('computer-college')) document.getElementById('nav-college')?.classList.add('active');
         else if (currentPath.includes('driving-school')) document.getElementById('nav-driving')?.classList.add('active');
+        else if (currentPath.includes('gallery')) document.getElementById('nav-gallery')?.classList.add('active');
         else if (currentPath.includes('about-us')) document.getElementById('nav-about')?.classList.add('active');
         else if (currentPath.includes('contact')) document.getElementById('nav-contact')?.classList.add('active');
     }

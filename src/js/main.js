@@ -247,6 +247,72 @@ const initMobileMenu = () => {
     }
 };
 
+// Slider Logic
+const initSlider = () => {
+    const sliders = document.querySelectorAll('.slider-container');
+    if (sliders.length === 0) return;
+
+    sliders.forEach(slider => {
+        const wrapper = slider.querySelector('.slider-wrapper');
+        const slides = slider.querySelectorAll('.slide');
+        const prevBtn = slider.querySelector('.prev-btn');
+        const nextBtn = slider.querySelector('.next-btn');
+        const dotsContainer = slider.querySelector('.slider-dots');
+
+        if (!wrapper || slides.length === 0) return;
+
+        let currentIndex = 0;
+        let autoPlayInterval;
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            if (dotsContainer) dotsContainer.appendChild(dot);
+        });
+
+        const updateDots = () => {
+            if (!dotsContainer) return;
+            slider.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        };
+
+        const goToSlide = (index) => {
+            currentIndex = index;
+            wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateDots();
+            resetAutoPlay();
+        };
+
+        const nextSlide = () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            goToSlide(currentIndex);
+        };
+
+        const prevSlide = () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            goToSlide(currentIndex);
+        };
+
+        if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+        const startAutoPlay = () => {
+            autoPlayInterval = setInterval(nextSlide, 5000 + Math.random() * 1000); // randomize slightly so they don't sync exactly
+        };
+
+        const resetAutoPlay = () => {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        };
+
+        startAutoPlay();
+    });
+};
+
 // Initializations
 document.addEventListener('DOMContentLoaded', () => {
     initNavbarComponent();
@@ -255,6 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initAnimations();
     initCustomCursor(); // NEW: Elite Cursor
+    initSlider(); // Init Slider if present
 
     // Initialize Icons AFTER components are injected
     const refreshIcons = () => {
