@@ -23,7 +23,7 @@ export const initFooterComponent = () => {
                     <li><a href="/contact.html">Help Center</a></li>
                     <li><a href="/contact.html">Terms of Service</a></li>
                     <li><a href="/contact.html">Privacy Policy</a></li>
-                    <li><a href="/contact.html">FAQ</a></li>
+                    <li><a href="/faq.html">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col">

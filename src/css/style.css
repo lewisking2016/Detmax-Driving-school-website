@@ -126,7 +126,7 @@ h1, h2, h3, h4, h5, h6 {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 15px;
 }
 
 .nav-links a {
@@ -135,8 +135,9 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     transition: var(--transition);
     font-size: 0.9rem;
-    padding: 8px 16px;
+    padding: 8px 12px;
     border-radius: 20px;
+    white-space: nowrap;
 }
 
 .navbar.scrolled .nav-links a {

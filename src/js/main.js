@@ -3,8 +3,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initNavbarComponent } from './navbar';
 import { initFooterComponent } from './footer';
+import { initChatbotComponent } from './chatbot';
 import intlTelInput from 'intl-tel-input';
 import 'intl-tel-input/build/css/intlTelInput.css';
+import '../css/chatbot.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -317,6 +319,7 @@ const initSlider = () => {
 document.addEventListener('DOMContentLoaded', () => {
     initNavbarComponent();
     initFooterComponent();
+    initChatbotComponent();
     initNavbar();
     initMobileMenu();
     initAnimations();

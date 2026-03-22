@@ -18,6 +18,7 @@ export const initNavbarComponent = () => {
                 <li><a href="/driving-school.html" id="nav-driving">Driving School</a></li>
                 <li><a href="/gallery.html" id="nav-gallery">Gallery</a></li>
                 <li><a href="/about-us.html" id="nav-about">About</a></li>
+                <li><a href="/faq.html" id="nav-faq">FAQs</a></li>
                 <li><a href="/contact.html" id="nav-contact">Contact</a></li>
             </ul>
             <a href="/contact.html" class="btn btn-primary nav-cta">Enroll Now</a>
@@ -37,6 +38,7 @@ export const initNavbarComponent = () => {
         else if (currentPath.includes('driving-school')) document.getElementById('nav-driving')?.classList.add('active');
         else if (currentPath.includes('gallery')) document.getElementById('nav-gallery')?.classList.add('active');
         else if (currentPath.includes('about-us')) document.getElementById('nav-about')?.classList.add('active');
+        else if (currentPath.includes('faq')) document.getElementById('nav-faq')?.classList.add('active');
         else if (currentPath.includes('contact')) document.getElementById('nav-contact')?.classList.add('active');
     }
 };

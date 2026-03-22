@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions | Detmax Driving School & Computer College</title>
+    <meta name="description" content="Find answers to commonly asked questions about Detmax Driving School and Online Computer College courses, fees, and more.">
+    <meta name="keywords" content="Detmax FAQs, Detmax Driving School questions, Detmax Computer College answers">
+    
+    <link rel="stylesheet" href="/src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="/logo.jpeg">
+    <!-- Extra style for FAQ Accordion -->
+    <style>
+        .faq-category {
+            margin-bottom: 40px;
+        }
+        .faq-category-title {
+            color: var(--secondary-red);
+            border-bottom: 2px solid rgba(255, 0, 0, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        .faq-item {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0, 31, 63, 0.05);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0, 31, 63, 0.08);
+            border-color: rgba(0, 31, 63, 0.1);
+        }
+        .faq-question {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-navy);
+            font-size: 1.15rem;
+            user-select: none;
+        }
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--secondary-red);
+        }
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            color: #444;
+            line-height: 1.7;
+        }
+        .faq-answer.open {
+            padding: 10px 25px 25px;
+        }
+        .faq-answer ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .faq-answer ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <img src="logo.jpeg" alt="Detmax Logo" class="loader-logo">
+        <div class="loader-text" style="color: white; font-weight: 700; letter-spacing: 2px;">DETMAX</div>
+    </div>
+
+    <div id="app">
+        <div id="navbar-placeholder"></div>
+
+        <main>
+            <!-- Page Header -->
+            <section class="page-header bg-navy text-white" style="padding-top: 150px; padding-bottom: 80px;">
+                <div class="container">
+                    <h1 data-gsap="fade-up">Frequently Asked Questions</h1>
+                    <p class="lead" data-gsap="fade-up" data-gsap-delay="0.2">Everything you need to know about learning with Detmax.</p>
+                </div>
+            </section>
+
+            <!-- FAQs Content -->
+            <section class="section bg-light" id="faq-section">
+                <div class="container" style="max-width: 900px;">
+                    
+                    <!-- 1. GENERAL INFORMATION -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">1. General Information</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q1: What courses do you offer? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>We offer professional driving courses (both manual and automatic) and a variety of computer training programs, including basic computer skills, packages, and advanced courses.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q2: Where are you located? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Detmax Driving School and Computer College operates from accessible training centers. Please contact us for the nearest branch location.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q3: How do I contact Detmax? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Phone: 0114971070 / 0111379171<br>Website: detmaxinstitute.co.ke</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. ENROLLMENT -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">2. Enrollment</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q4: How do I enroll? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>You can enroll by visiting our office, contacting us via phone, or registering through our website.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q5: What documents are required for enrollment? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <ul>
+                                    <li>National ID or Passport</li>
+                                    <li>Passport-size photos</li>
+                                    <li>Any required academic documents (for computer courses)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q6: Is there an age requirement for driving courses? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, students must meet the legal minimum driving age as required by law.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. FEES AND PAYMENTS -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">3. Fees and Payments</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q7: How much are the course fees? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Fees vary depending on the course. Please contact us for the latest pricing and available discounts.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q8: Do you offer discounts? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, we occasionally offer promotions (e.g., student discounts). Terms apply.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q9: Are fees refundable? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Fees are generally non-refundable, except under special circumstances approved by management.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. DRIVING COURSES -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">4. Driving Courses</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q10: Do you offer both manual and automatic driving lessons? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, we provide training for both manual and automatic vehicles.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q11: How long does the driving course take? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>The duration depends on the package selected and the learner’s progress.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q12: Do you guarantee a driving license after training? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>No, we prepare you thoroughly, but passing the official driving test depends on your performance.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q13: Are the training vehicles safe? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, all our vehicles are regularly maintained and meet safety standards.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. COMPUTER COURSES -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">5. Computer Courses</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q14: What computer courses are available? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>We offer beginner to advanced programs, including computer basics, Microsoft Office packages, internet skills, and more.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q15: Do I need prior computer knowledge? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>No, we have beginner-friendly courses for those with no prior experience.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q16: Will I receive a certificate? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, certificates are issued upon successful completion of the course.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. TRAINING SCHEDULE -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">6. Training Schedule</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q17: Do you offer flexible class schedules? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, we provide flexible schedules, including weekday and weekend classes.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q18: Can I reschedule my classes? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, rescheduling is allowed with prior notice, subject to availability.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. STUDENT SUPPORT -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">7. Student Support</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q19: Do you provide support during training? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, our instructors and staff are always available to guide and support you.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q20: What happens if I miss a class? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>You should inform the administration in advance. Makeup sessions may be arranged where possible.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. SAFETY AND CONDUCT -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">8. Safety & Conduct</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q21: What safety measures are in place during driving lessons? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>We follow strict safety protocols, including instructor supervision and well-maintained vehicles.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q22: What behavior is expected from students? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Students are expected to be respectful, disciplined, and follow all institutional rules.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 9. CERTIFICATION AND COMPLETION -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">9. Certification & Completion</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q23: What do I need to complete my course? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>You must attend required sessions, meet performance standards, and pass assessments.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q24: How long does it take to receive a certificate? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Certificates are issued within a reasonable time after successful completion.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 10. OTHER QUESTIONS -->
+                    <div class="faq-category" data-gsap="fade-up">
+                        <h2 class="faq-category-title">10. Other Questions</h2>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Q25: Can I enroll in more than one course? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>Yes, you can enroll in multiple courses depending on your schedule.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Q26: Do you offer job placement assistance? <i data-lucide="chevron-down"></i></div>
+                            <div class="faq-answer">
+                                <p>We may provide guidance and recommendations, but job placement is not guaranteed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+
+        <!-- Floating Actions -->
+        <div class="floating-actions">
+            <!-- Chatbot injects into here or similar places, wait I'll inject via JS -->
+            <a href="https://wa.me/18013195465" class="float-btn btn-whatsapp" target="_blank" title="Chat on WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width: 24px; height: 24px; fill: white;"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+            </a>
+            <button class="float-btn btn-top" id="backToTop" title="Back to Top">
+                <i data-lucide="arrow-up"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Script to handle FAQ Accorion -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    // Close others potentially? Or leave open. Let's toggle only the clicked one.
+                    const answer = question.nextElementSibling;
+                    const isActive = question.classList.contains('active');
+                    
+                    if (isActive) {
+                        question.classList.remove('active');
+                        answer.classList.remove('open');
+                        answer.style.maxHeight = null;
+                    } else {
+                        question.classList.add('active');
+                        answer.classList.add('open');
+                        answer.style.maxHeight = answer.scrollHeight + 40 + "px"; // 40 for padding
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@ export default defineConfig({
         computer: resolve(__dirname, 'computer-college.html'),
         contact: resolve(__dirname, 'contact.html'),
         gallery: resolve(__dirname, 'gallery.html'),
+        faq: resolve(__dirname, 'faq.html'),
       }
     }
   }
