@@ -21,8 +21,8 @@ export const initFooterComponent = () => {
                 <h4>Support</h4>
                 <ul class="footer-links">
                     <li><a href="/contact.html">Help Center</a></li>
-                    <li><a href="/contact.html">Terms of Service</a></li>
-                    <li><a href="/contact.html">Privacy Policy</a></li>
+                    <li><a href="/terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="/privacy-policy.html">Privacy Policy</a></li>
                     <li><a href="/faq.html">FAQ</a></li>
                 </ul>
             </div>

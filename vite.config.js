@@ -12,6 +12,10 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         faq: resolve(__dirname, 'faq.html'),
+        terms: resolve(__dirname, 'terms-of-service.html'),
+        privacy: resolve(__dirname, 'privacy-policy.html'),
+        thanks: resolve(__dirname, 'thank-you.html'),
+        registration: resolve(__dirname, 'registration.html'),
       }
     }
   }

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration | Detmax Driving School & Computer College</title>
+    <meta name="description" content="Official admission form for Detmax Driving School and Computer College. Enroll today and start your journey with us.">
+    
+    <link rel="stylesheet" href="/src/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="/logo.jpeg">
+    
+    <style>
+        .registration-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        
+        /* Splash Screen */
+        #registration-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .splash-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-top: 5px solid var(--primary-navy);
+        }
+        
+        .splash-card h2 {
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+        }
+        
+        .splash-card p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .splash-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Multi-step Form */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+        
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 2;
+            transition: 0.3s;
+        }
+        
+        .step.active {
+            border-color: var(--primary-navy);
+            background: var(--primary-navy);
+            color: white;
+        }
+        
+        .step.completed {
+            background: var(--secondary-red);
+            border-color: var(--secondary-red);
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Success Message Overlay */
+        #success-overlay {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+        }
+    </style>
+</head>
+<body class="page-registration">
+    <!-- Splash Screen -->
+    <div id="registration-splash">
+        <div class="splash-card">
+            <div class="icon-box md" style="margin: 0 auto 20px; background: rgba(255, 0, 0, 0.1); color: var(--secondary-red);">
+                <i data-lucide="clipboard-check"></i>
+            </div>
+            <h2>Admission Registration</h2>
+            <p><strong>Heads Up!</strong> This form is specifically for students who are ready to <strong>Enroll</strong> and start their program.</p>
+            <p>If you have general questions or want to inquire about fees and schedules, please use our Inquiry Form instead.</p>
+            
+            <div class="splash-actions">
+                <button class="btn btn-primary" onclick="startRegistration()">Register for Programs</button>
+                <a href="/contact.html" class="btn btn-secondary">I have an Inquiry (Go to Contact)</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submitting Overlay -->
+    <div id="submitting-overlay">
+        <div class="spinner"></div>
+        <p>Submitting your application...</p>
+    </div>
+
+    <div id="app">
+        <div id="navbar-placeholder"></div>
+
+        <main>
+            <section class="section">
+                <div class="container">
+                    <div class="registration-container glass">
+                        <h2 class="section-title text-center">Admission Form</h2>
+                        
+                        <!-- Progress Indicator -->
+                        <div class="step-indicator">
+                            <div class="step active" data-step="1">1</div>
+                            <div class="step" data-step="2">2</div>
+                            <div class="step" data-step="3">3</div>
+                            <div class="step" data-step="4">4</div>
+                            <div class="step" data-step="5">5</div>
+                        </div>
+
+                        <!-- Main Form Submission via Hidden Iframe -->
+                        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {showSuccess();}"></iframe>
+                        
+                        <form id="admission-form" action="https://docs.google.com/forms/d/e/1FAIpQLSesAwyz3GPPEyEQxziebIF8voZ0DBwO5j45j7Kok-K7CCyR6w/formResponse" method="POST" target="hidden_iframe">
+                            
+                            <!-- Section 1: Personal Info -->
+                            <div class="form-step active" id="step-1">
+                                <h3>Section 1: Personal Information</h3>
+                                <div class="form-group">
+                                    <label>Full Name *</label>
+                                    <input type="text" name="entry.990045371" required placeholder="Enter your full legal name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender *</label>
+                                    <select name="entry.505465665" required>
+                                        <option value="" disabled selected>Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Prefer not to say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label>Date of Birth *</label>
+                                        <input type="date" id="dob-input" required>
+                                        <input type="hidden" name="entry.1259281128_day" id="dob-day">
+                                        <input type="hidden" name="entry.1259281128_month" id="dob-month">
+                                        <input type="hidden" name="entry.1259281128_year" id="dob-year">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ID/Passport Number (Optional)</label>
+                                        <input type="text" name="entry.687759416" placeholder="Enter ID number">
+                                    </div>
+                                </div>
+                                <div class="grid-2">
+                                    <div class="form-group">
+                                        <label>Phone Number * (WhatsApp preferred)</label>
+                                        <input type="tel" name="entry.1597964771" required placeholder="+254...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address *</label>
+                                        <input type="email" name="entry.1584909596" required placeholder="yourname@gmail.com">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Physical Address *</label>
+                                    <textarea name="entry.1137493903" rows="2" required placeholder="Area, Building, House No."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Course Details -->
+                            <div class="form-step" id="step-2">
+                                <h3>Section 2: Course Details</h3>
+                                <div class="form-group">
+                                    <label>Course Applying For *</label>
+                                    <select name="entry.226339674" required>
+                                        <option value="" disabled selected>Select a program</option>
+                                        <option value="Basic Computer Packages (Beginner)">Basic Computer Packages (Beginner)</option>
+                                        <option value="Advanced Computer Training">Advanced Computer Training</option>
+                                        <option value="Advanced Computer Training & Basic Coding">Advanced Computer Training & Basic Coding</option>
+                                        <option value="Driving School">Driving School Programs</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preferred Start Date *</label>
+                                    <input type="date" id="start-date-input" required>
+                                    <input type="hidden" name="entry.2064686850_day" id="start-day">
+                                    <input type="hidden" name="entry.2064686850_month" id="start-month">
+                                    <input type="hidden" name="entry.2064686850_year" id="start-year">
+                                </div>
+                                <div class="form-group">
+                                    <label>Training Schedule Preference *</label>
+                                    <div class="custom-radio-group">
+                                        <label><input type="radio" name="entry.607621797" value="Weekdays" required> Weekdays</label>
+                                        <label><input type="radio" name="entry.607621797" value="Weekends"> Weekends</label>
+                                        <label><input type="radio" name="entry.607621797" value="Flexible"> Flexible</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Emergency Contact -->
+                            <div class="form-step" id="step-3">
+                                <h3>Section 3: Emergency Contact</h3>
+                                <div class="form-group">
+                                    <label>Emergency Contact Name *</label>
+                                    <input type="text" name="entry.1981339977" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Emergency Contact Phone Number *</label>
+                                    <input type="tel" name="entry.753623345" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Relationship to Emergency Contact *</label>
+                                    <input type="text" name="entry.420375596" required placeholder="e.g. Parent, Guardian, Sibling">
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Referral -->
+                            <div class="form-step" id="step-4">
+                                <h3>Section 4: Referral Information</h3>
+                                <div class="form-group">
+                                    <label>How did you hear about us? *</label>
+                                    <select name="entry.581890365" required>
+                                        <option value="Friend/Family">Friend/Family</option>
+                                        <option value="Social Media">Social Media</option>
+                                        <option value="Advertisement">Advertisement</option>
+                                        <option value="Website">Website</option>
+                                        <option value="Walk-in">Walk-in</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Referred by? (Optional)</label>
+                                    <textarea name="entry.452433648" rows="2" placeholder="Referrer Name & Phone Number"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Section 5: Declaration -->
+                            <div class="form-step" id="step-5">
+                                <h3>Section 5: Declaration</h3>
+                                <div class="p-20 bg-light mb-20" style="border-radius: 10px; font-size: 0.9em;">
+                                    <p>I confirm that the information provided is true and correct. I agree to abide by the rules and regulations of Detmax Driving School and Computer College.</p>
+                                    <div class="mt-15">
+                                        <a href="https://drive.google.com/file/d/19V-cM27X_9zOKLO9uvDmQWUb4HdwRjxj/view?usp=sharing" target="_blank" class="text-secondary" style="font-weight: bold; text-decoration: underline;">Read Full Rules & Regulations</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="display: flex; gap: 10px; font-weight: normal;">
+                                        <input type="checkbox" name="entry.1126227853" value="Yes, I have read and understood them." required style="width: auto;">
+                                        <span>Yes, I have read and understood the rules and regulations. *</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="btn-prev" style="visibility: hidden;">Previous</button>
+                                <button type="button" class="btn btn-primary" id="btn-next">Next Step</button>
+                                <button type="submit" class="btn btn-primary" id="btn-submit" style="display: none;">Complete Registration</button>
+                            </div>
+                        </form>
+
+                        <div id="success-overlay" class="mt-40">
+                            <div class="icon-box md" style="margin: 0 auto 20px; background: rgba(0, 128, 0, 0.1); color: green;">
+                                <i data-lucide="check-circle"></i>
+                            </div>
+                            <h2>Registration Successful!</h2>
+                            <p class="lead">Thank you for enrolling at Detmax. Your application has been received.</p>
+                            <p>Our admissions officer will contact you within 24 hours to confirm your intake details and payment instructions.</p>
+                            <div class="mt-40">
+                                <a href="/" class="btn btn-primary">Back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer-placeholder"></div>
+    </div>
+
+    <script type="module" src="/src/js/main.js"></script>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        let submitted = false;
+
+        function startRegistration() {
+            document.getElementById('registration-splash').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('registration-splash').style.display = 'none';
+            }, 500);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('admission-form');
+            const btnNext = document.getElementById('btn-next');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnSubmit = document.getElementById('btn-submit');
+            
+            // Handle Date inputs splitting into Google Form fields
+            const dobInput = document.getElementById('dob-input');
+            const startDateInput = document.getElementById('start-date-input');
+
+            function updateDateFields(input, dayId, monthId, yearId) {
+                if(input.value) {
+                    const date = new Date(input.value);
+                    document.getElementById(dayId).value = date.getDate();
+                    document.getElementById(monthId).value = date.getMonth() + 1;
+                    document.getElementById(yearId).value = date.getFullYear();
+                }
+            }
+
+            btnNext.onclick = () => {
+                if (validateStep(currentStep)) {
+                    if (currentStep < totalSteps) {
+                        goToStep(currentStep + 1);
+                    }
+                }
+            };
+
+            btnPrev.onclick = () => {
+                if (currentStep > 1) {
+                    goToStep(currentStep - 1);
+                }
+            };
+
+            form.onsubmit = () => {
+                updateDateFields(dobInput, 'dob-day', 'dob-month', 'dob-year');
+                updateDateFields(startDateInput, 'start-day', 'start-month', 'start-year');
+                document.getElementById('submitting-overlay').style.display = 'flex';
+                submitted = true;
+            };
+
+            function goToStep(step) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('completed');
+                
+                const indicator = document.querySelector('.step-indicator');
+                const progress = ((step - 1) / (totalSteps - 1)) * 100;
+                indicator.style.setProperty('--progress-width', `${progress}%`);
+
+                // Update dots
+                document.querySelectorAll('.step').forEach(s => {
+                    const sStep = parseInt(s.dataset.step);
+                    if(sStep < currentStep) s.classList.add('completed');
+                    if(sStep === currentStep) s.classList.add('active');
+                    if(sStep > currentStep) {
+                        s.classList.remove('active');
+                        s.classList.remove('completed');
+                    }
+                });
+
+                // Update buttons
+                btnPrev.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+                if(currentStep === totalSteps) {
+                    btnNext.style.display = 'none';
+                    btnSubmit.style.display = 'block';
+                } else {
+                    btnNext.style.display = 'block';
+                    btnSubmit.style.display = 'none';
+                }
+            }
+
+            function validateStep(step) {
+                const stepElement = document.getElementById(`step-${step}`);
+                const inputs = stepElement.querySelectorAll('input[required], select[required], textarea[required]');
+                let valid = true;
+                inputs.forEach(input => {
+                    if(!input.value || (input.type === 'radio' && !stepElement.querySelector(`input[name="${input.name}"]:checked`))) {
+                        input.reportValidity();
+                        valid = false;
+                    }
+                });
+                return valid;
+            }
+        });
+
+        function showSuccess() {
+            document.getElementById('submitting-overlay').style.display = 'none';
+            document.getElementById('admission-form').style.display = 'none';
+            document.querySelector('.step-indicator').style.display = 'none';
+            document.getElementById('success-overlay').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

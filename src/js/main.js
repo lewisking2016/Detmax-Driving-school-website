@@ -181,36 +181,11 @@ const initAnimations = () => {
         }
     });
 
-    // 3D Tilt Effect - Exclude professional forms
-    const cards = document.querySelectorAll('.glass:not(.no-tilt), .p-mini-card, .price-hub, .adv-card, .testimonial-card, .obj-card, .contact-card, .payment-box, .process-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-
-            gsap.to(card, {
-                rotateX: rotateX,
-                rotateY: rotateY,
-                duration: 0.5,
-                ease: "power2.out",
-                transformPerspective: 1000
-            });
-        });
-
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-                rotateX: 0,
-                rotateY: 0,
-                duration: 0.8,
-                ease: "elastic.out(1, 0.5)"
-            });
-        });
-    });
+    // 3D Tilt Effect - Disabled to avoid confusion during form entry
+    /*
+    const cards = document.querySelectorAll('.glass:not(.no-tilt), .p-mini-card...
+    ...
+    */
 };
 
 // Navbar Scroll Effect (Fixed Logic)
