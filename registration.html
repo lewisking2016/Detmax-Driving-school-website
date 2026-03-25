@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration | Detmax Driving School & Computer College</title>
-    <meta name="description" content="Official admission form for Detmax Driving School and Computer College. Enroll today and start your journey with us.">
+    <title>Enroll Now | Detmax Driving School & Computer College</title>
+    <meta name="description" content="Official enrollment form for Detmax Driving School and Computer College. Enroll today and start your journey with us.">
     
     <link rel="stylesheet" href="/src/css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -72,51 +72,37 @@
             display: block;
         }
         
-        .step-indicator {
+        .registration-progress-container {
+            width: 100%;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 31, 63, 0.05);
+        }
+        
+        #registration-progress-bar {
+            width: 20%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-navy), var(--secondary-red));
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        }
+        
+        .progress-meta {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .step-indicator::before {
-            content: '';
-            position: absolute;
-            top: 15px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #e0e0e0;
-            z-index: 1;
-        }
-        
-        .step {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid #e0e0e0;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 0.8em;
-            font-weight: bold;
-            z-index: 2;
-            transition: 0.3s;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
-        .step.active {
-            border-color: var(--primary-navy);
-            background: var(--primary-navy);
-            color: white;
-        }
-        
-        .step.completed {
-            background: var(--secondary-red);
-            border-color: var(--secondary-red);
-            color: white;
-        }
-        
+
         .form-group {
             margin-bottom: 25px;
         }
@@ -145,6 +131,52 @@
             text-align: center;
             padding: 80px 20px;
         }
+
+        /* Premium Line Loader */
+        #submitting-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 31, 63, 0.98);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            color: white;
+        }
+
+        .loader-content {
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .loader-line-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .loader-line {
+            width: 0%;
+            height: 100%;
+            background: var(--secondary-red);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 15px var(--secondary-red);
+        }
+
+        .loader-percentage {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            font-family: var(--font-main);
+        }
     </style>
 </head>
 <body class="page-registration">
@@ -154,7 +186,7 @@
             <div class="icon-box md" style="margin: 0 auto 20px; background: rgba(255, 0, 0, 0.1); color: var(--secondary-red);">
                 <i data-lucide="clipboard-check"></i>
             </div>
-            <h2>Admission Registration</h2>
+            <h2>Enroll Now (Registration)</h2>
             <p><strong>Heads Up!</strong> This form is specifically for students who are ready to <strong>Enroll</strong> and start their program.</p>
             <p>If you have general questions or want to inquire about fees and schedules, please use our Inquiry Form instead.</p>
             
@@ -167,8 +199,13 @@
 
     <!-- Submitting Overlay -->
     <div id="submitting-overlay">
-        <div class="spinner"></div>
-        <p>Submitting your application...</p>
+        <div class="loader-content">
+            <div class="loader-line-container">
+                <div class="loader-line" id="loader-line"></div>
+            </div>
+            <div class="loader-percentage" id="loader-percentage">0%</div>
+            <p>Finalizing your application...</p>
+        </div>
     </div>
 
     <div id="app">
@@ -178,21 +215,21 @@
             <section class="section">
                 <div class="container">
                     <div class="registration-container glass">
-                        <h2 class="section-title text-center">Admission Form</h2>
+                        <h2 class="section-title text-center">Enrollment Form</h2>
                         
                         <!-- Progress Indicator -->
-                        <div class="step-indicator">
-                            <div class="step active" data-step="1">1</div>
-                            <div class="step" data-step="2">2</div>
-                            <div class="step" data-step="3">3</div>
-                            <div class="step" data-step="4">4</div>
-                            <div class="step" data-step="5">5</div>
+                        <div class="progress-meta">
+                            <span id="step-name">Personal Information</span>
+                            <span id="step-counter">Step 1 of 5</span>
+                        </div>
+                        <div class="registration-progress-container">
+                            <div id="registration-progress-bar"></div>
                         </div>
 
                         <!-- Main Form Submission via Hidden Iframe -->
                         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {showSuccess();}"></iframe>
                         
-                        <form id="admission-form" action="https://docs.google.com/forms/d/e/1FAIpQLSesAwyz3GPPEyEQxziebIF8voZ0DBwO5j45j7Kok-K7CCyR6w/formResponse" method="POST" target="hidden_iframe">
+                        <form id="enrollment-form" action="https://docs.google.com/forms/d/e/1FAIpQLSesAwyz3GPPEyEQxziebIF8voZ0DBwO5j45j7Kok-K7CCyR6w/formResponse" method="POST" target="hidden_iframe">
                             
                             <!-- Section 1: Personal Info -->
                             <div class="form-step active" id="step-1">
@@ -336,7 +373,7 @@
                             </div>
                             <h2>Registration Successful!</h2>
                             <p class="lead">Thank you for enrolling at Detmax. Your application has been received.</p>
-                            <p>Our admissions officer will contact you within 24 hours to confirm your intake details and payment instructions.</p>
+                            <p>Our enrollment officer will contact you within 24 hours to confirm your intake details and payment instructions.</p>
                             <div class="mt-40">
                                 <a href="/" class="btn btn-primary">Back to Home</a>
                             </div>
@@ -363,7 +400,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('admission-form');
+            const form = document.getElementById('enrollment-form');
             const btnNext = document.getElementById('btn-next');
             const btnPrev = document.getElementById('btn-prev');
             const btnSubmit = document.getElementById('btn-submit');
@@ -398,28 +435,50 @@
             form.onsubmit = () => {
                 updateDateFields(dobInput, 'dob-day', 'dob-month', 'dob-year');
                 updateDateFields(startDateInput, 'start-day', 'start-month', 'start-year');
+                
                 document.getElementById('submitting-overlay').style.display = 'flex';
+                animateLoading();
                 submitted = true;
             };
 
-            function goToStep(step) {
-                document.getElementById(`step-${currentStep}`).classList.remove('active');
-                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('completed');
-                
-                const indicator = document.querySelector('.step-indicator');
-                const progress = ((step - 1) / (totalSteps - 1)) * 100;
-                indicator.style.setProperty('--progress-width', `${progress}%`);
-
-                // Update dots
-                document.querySelectorAll('.step').forEach(s => {
-                    const sStep = parseInt(s.dataset.step);
-                    if(sStep < currentStep) s.classList.add('completed');
-                    if(sStep === currentStep) s.classList.add('active');
-                    if(sStep > currentStep) {
-                        s.classList.remove('active');
-                        s.classList.remove('completed');
+            function animateLoading() {
+                const line = document.getElementById('loader-line');
+                const text = document.getElementById('loader-percentage');
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                    } else {
+                        width += Math.random() * 15;
+                        if (width > 100) width = 100;
+                        line.style.width = width + '%';
+                        text.innerText = Math.floor(width) + '%';
                     }
-                });
+                }, 200);
+            }
+
+            function goToStep(step) {
+                // UI transition
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                document.getElementById(`step-${step}`).classList.add('active');
+                
+                // Update Progress Bar
+                const progress = (step / totalSteps) * 100;
+                document.getElementById('registration-progress-bar').style.width = progress + '%';
+                
+                // Update Meta Text
+                const stepNames = [
+                    "Personal Information",
+                    "Course Details",
+                    "Emergency Contact",
+                    "Referral Information",
+                    "Declaration"
+                ];
+                document.getElementById('step-name').innerText = stepNames[step - 1];
+                document.getElementById('step-counter').innerText = `Step ${step} of 5`;
+
+                // Update currentStep variable
+                currentStep = step;
 
                 // Update buttons
                 btnPrev.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
@@ -430,6 +489,9 @@
                     btnNext.style.display = 'block';
                     btnSubmit.style.display = 'none';
                 }
+
+                // Smooth scroll to top of form
+                document.querySelector('.registration-container').scrollIntoView({ behavior: 'smooth' });
             }
 
             function validateStep(step) {
@@ -448,8 +510,10 @@
 
         function showSuccess() {
             document.getElementById('submitting-overlay').style.display = 'none';
-            document.getElementById('admission-form').style.display = 'none';
-            document.querySelector('.step-indicator').style.display = 'none';
+            document.getElementById('enrollment-form').style.display = 'none';
+            document.querySelector('.registration-progress-container').style.display = 'none';
+            document.querySelector('.progress-meta').style.display = 'none';
+            document.querySelector('.section-title').innerText = "Enrollment Success";
             document.getElementById('success-overlay').style.display = 'block';
         }
     </script>

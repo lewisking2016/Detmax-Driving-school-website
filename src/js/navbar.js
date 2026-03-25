@@ -21,7 +21,7 @@ export const initNavbarComponent = () => {
                 <li><a href="/faq.html" id="nav-faq">FAQs</a></li>
                 <li><a href="/contact.html" id="nav-contact">Contact</a></li>
             </ul>
-            <a href="/contact.html" class="btn btn-primary nav-cta">Enroll Now</a>
+            <a href="/registration.html" class="btn btn-primary nav-cta">Enroll Now</a>
             <button class="mobile-menu-toggle"><span></span><span></span><span></span></button>
         </nav>
     </header>
