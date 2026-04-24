@@ -411,12 +411,17 @@
 
             function updateDateFields(input, dayId, monthId, yearId) {
                 if(input.value) {
-                    const date = new Date(input.value);
-                    document.getElementById(dayId).value = date.getDate();
-                    document.getElementById(monthId).value = date.getMonth() + 1;
-                    document.getElementById(yearId).value = date.getFullYear();
+                    // Use string split to avoid timezone shifts from new Date()
+                    const [year, month, day] = input.value.split('-');
+                    document.getElementById(dayId).value = day;
+                    document.getElementById(monthId).value = parseInt(month, 10);
+                    document.getElementById(yearId).value = year;
                 }
             }
+
+            // Sync dates whenever they change
+            dobInput.addEventListener('change', () => updateDateFields(dobInput, 'dob-day', 'dob-month', 'dob-year'));
+            startDateInput.addEventListener('change', () => updateDateFields(startDateInput, 'start-day', 'start-month', 'start-year'));
 
             btnNext.onclick = () => {
                 if (validateStep(currentStep)) {
@@ -433,6 +438,7 @@
             };
 
             form.onsubmit = () => {
+                // Final sync just in case
                 updateDateFields(dobInput, 'dob-day', 'dob-month', 'dob-year');
                 updateDateFields(startDateInput, 'start-day', 'start-month', 'start-year');
                 
@@ -496,10 +502,29 @@
 
             function validateStep(step) {
                 const stepElement = document.getElementById(`step-${step}`);
+                if (!stepElement) return true;
+                
                 const inputs = stepElement.querySelectorAll('input[required], select[required], textarea[required]');
                 let valid = true;
                 inputs.forEach(input => {
-                    if(!input.value || (input.type === 'radio' && !stepElement.querySelector(`input[name="${input.name}"]:checked`))) {
+                    if (input.type === 'radio') {
+                        const checked = stepElement.querySelector(`input[name="${input.name}"]:checked`);
+                        if (!checked) {
+                            input.setCustomValidity("Please select an option.");
+                            input.reportValidity();
+                            valid = false;
+                        } else {
+                            input.setCustomValidity("");
+                        }
+                    } else if (input.type === 'checkbox') {
+                        if (!input.checked) {
+                            input.setCustomValidity("Please check this box to continue.");
+                            input.reportValidity();
+                            valid = false;
+                        } else {
+                            input.setCustomValidity("");
+                        }
+                    } else if (!input.value) {
                         input.reportValidity();
                         valid = false;
                     }
