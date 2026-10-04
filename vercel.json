@@ -8,9 +8,6 @@
       "maxDuration": 15
     }
   },
-  "rewrites": [
-    { "source": "/api/send-email", "destination": "/api/send-email.js" }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
