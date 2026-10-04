@@ -31,7 +31,7 @@ export const initFooterComponent = () => {
                 <ul class="footer-contact-info">
                     <li><span class="icon-sm"><i data-lucide="map-pin"></i></span> Main Office, Nairobi, Kenya</li>
                     <li><span class="icon-sm"><i data-lucide="phone"></i></span> +254 111 379171</li>
-                    <li><span class="icon-sm"><i data-lucide="mail"></i></span> detmaxltd@gmail.com</li>
+                    <li><span class="icon-sm"><i data-lucide="mail"></i></span> <a href="mailto:info@detmaxinstitute.co.ke" style="color:inherit;text-decoration:none;">info@detmaxinstitute.co.ke</a></li>
                     <li><span class="icon-sm"><i data-lucide="clock"></i></span> Mon - Sat: 8:00 AM - 6:00 PM</li>
                 </ul>
             </div>

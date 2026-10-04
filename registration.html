@@ -226,21 +226,30 @@
                             <div id="registration-progress-bar"></div>
                         </div>
 
-                        <!-- Main Form Submission via Hidden Iframe -->
-                        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {showSuccess();}"></iframe>
-                        
-                        <form id="enrollment-form" action="https://docs.google.com/forms/d/e/1FAIpQLSesAwyz3GPPEyEQxziebIF8voZ0DBwO5j45j7Kok-K7CCyR6w/formResponse" method="POST" target="hidden_iframe">
+                        <!-- Status Messages -->
+                        <div id="enroll-success" style="display:none;text-align:center;padding:60px 20px;">
+                            <div class="icon-box md" style="margin:0 auto 20px;background:rgba(0,128,0,0.1);color:green;"><i data-lucide="check-circle"></i></div>
+                            <h2>Registration Successful!</h2>
+                            <p class="lead">Thank you for enrolling at Detmax. Your application has been received.</p>
+                            <p>Our enrollment officer will contact you within <strong>24 hours</strong>. Check your email for a detailed confirmation with payment info.</p>
+                            <div class="mt-40"><a href="/" class="btn btn-primary">Back to Home</a></div>
+                        </div>
+                        <div id="enroll-error" style="display:none;background:#fff3f3;border:1px solid #cc0000;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
+                            <p style="color:#cc0000;font-size:14px;margin:0;" id="enroll-error-msg">Something went wrong. Please try again.</p>
+                        </div>
+
+                        <form id="enrollment-form" novalidate>
                             
                             <!-- Section 1: Personal Info -->
                             <div class="form-step active" id="step-1">
                                 <h3>Section 1: Personal Information</h3>
                                 <div class="form-group">
                                     <label>Full Name *</label>
-                                    <input type="text" name="entry.990045371" required placeholder="Enter your full legal name">
+                                    <input type="text" id="reg-fullName" required placeholder="Enter your full legal name">
                                 </div>
                                 <div class="form-group">
                                     <label>Gender *</label>
-                                    <select name="entry.505465665" required>
+                                    <select id="reg-gender" required>
                                         <option value="" disabled selected>Select Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -251,28 +260,25 @@
                                     <div class="form-group">
                                         <label>Date of Birth *</label>
                                         <input type="date" id="dob-input" required>
-                                        <input type="hidden" name="entry.1259281128_day" id="dob-day">
-                                        <input type="hidden" name="entry.1259281128_month" id="dob-month">
-                                        <input type="hidden" name="entry.1259281128_year" id="dob-year">
                                     </div>
                                     <div class="form-group">
                                         <label>ID/Passport Number (Optional)</label>
-                                        <input type="text" name="entry.687759416" placeholder="Enter ID number">
+                                        <input type="text" id="reg-idNumber" placeholder="Enter ID number">
                                     </div>
                                 </div>
                                 <div class="grid-2">
                                     <div class="form-group">
                                         <label>Phone Number * (WhatsApp preferred)</label>
-                                        <input type="tel" name="entry.1597964771" required placeholder="+254...">
+                                        <input type="tel" id="reg-phone" required placeholder="+254...">
                                     </div>
                                     <div class="form-group">
                                         <label>Email Address *</label>
-                                        <input type="email" name="entry.1584909596" required placeholder="yourname@gmail.com">
+                                        <input type="email" id="reg-email" required placeholder="yourname@gmail.com">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Physical Address *</label>
-                                    <textarea name="entry.1137493903" rows="2" required placeholder="Area, Building, House No."></textarea>
+                                    <textarea id="reg-address" rows="2" required placeholder="Area, Building, House No."></textarea>
                                 </div>
                             </div>
 
@@ -281,27 +287,24 @@
                                 <h3>Section 2: Course Details</h3>
                                 <div class="form-group">
                                     <label>Course Applying For *</label>
-                                    <select name="entry.226339674" required>
+                                    <select id="reg-course" required>
                                         <option value="" disabled selected>Select a program</option>
                                         <option value="Basic Computer Packages (Beginner)">Basic Computer Packages (Beginner)</option>
                                         <option value="Advanced Computer Training">Advanced Computer Training</option>
-                                        <option value="Advanced Computer Training & Basic Coding">Advanced Computer Training & Basic Coding</option>
-                                        <option value="Driving School">Driving School Programs</option>
+                                        <option value="Advanced Computer Training & Basic Coding">Advanced Computer Training &amp; Basic Coding</option>
+                                        <option value="Driving School Programs">Driving School Programs</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Preferred Start Date *</label>
                                     <input type="date" id="start-date-input" required>
-                                    <input type="hidden" name="entry.2064686850_day" id="start-day">
-                                    <input type="hidden" name="entry.2064686850_month" id="start-month">
-                                    <input type="hidden" name="entry.2064686850_year" id="start-year">
                                 </div>
                                 <div class="form-group">
                                     <label>Training Schedule Preference *</label>
                                     <div class="custom-radio-group">
-                                        <label><input type="radio" name="entry.607621797" value="Weekdays" required> Weekdays</label>
-                                        <label><input type="radio" name="entry.607621797" value="Weekends"> Weekends</label>
-                                        <label><input type="radio" name="entry.607621797" value="Flexible"> Flexible</label>
+                                        <label><input type="radio" name="reg-schedule" value="Weekdays" required> Weekdays</label>
+                                        <label><input type="radio" name="reg-schedule" value="Weekends"> Weekends</label>
+                                        <label><input type="radio" name="reg-schedule" value="Flexible"> Flexible</label>
                                     </div>
                                 </div>
                             </div>
@@ -311,15 +314,15 @@
                                 <h3>Section 3: Emergency Contact</h3>
                                 <div class="form-group">
                                     <label>Emergency Contact Name *</label>
-                                    <input type="text" name="entry.1981339977" required>
+                                    <input type="text" id="reg-emergencyName" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Emergency Contact Phone Number *</label>
-                                    <input type="tel" name="entry.753623345" required>
+                                    <input type="tel" id="reg-emergencyPhone" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Relationship to Emergency Contact *</label>
-                                    <input type="text" name="entry.420375596" required placeholder="e.g. Parent, Guardian, Sibling">
+                                    <input type="text" id="reg-emergencyRelation" required placeholder="e.g. Parent, Guardian, Sibling">
                                 </div>
                             </div>
 
@@ -328,7 +331,8 @@
                                 <h3>Section 4: Referral Information</h3>
                                 <div class="form-group">
                                     <label>How did you hear about us? *</label>
-                                    <select name="entry.581890365" required>
+                                    <select id="reg-referral" required>
+                                        <option value="" disabled selected>Select an option</option>
                                         <option value="Friend/Family">Friend/Family</option>
                                         <option value="Social Media">Social Media</option>
                                         <option value="Advertisement">Advertisement</option>
@@ -339,7 +343,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Referred by? (Optional)</label>
-                                    <textarea name="entry.452433648" rows="2" placeholder="Referrer Name & Phone Number"></textarea>
+                                    <textarea id="reg-referredBy" rows="2" placeholder="Referrer Name &amp; Phone Number"></textarea>
                                 </div>
                             </div>
 
@@ -349,12 +353,12 @@
                                 <div class="p-20 bg-light mb-20" style="border-radius: 10px; font-size: 0.9em;">
                                     <p>I confirm that the information provided is true and correct. I agree to abide by the rules and regulations of Detmax Driving School and Computer College.</p>
                                     <div class="mt-15">
-                                        <a href="https://drive.google.com/file/d/19V-cM27X_9zOKLO9uvDmQWUb4HdwRjxj/view?usp=sharing" target="_blank" class="text-secondary" style="font-weight: bold; text-decoration: underline;">Read Full Rules & Regulations</a>
+                                        <a href="https://drive.google.com/file/d/19V-cM27X_9zOKLO9uvDmQWUb4HdwRjxj/view?usp=sharing" target="_blank" class="text-secondary" style="font-weight: bold; text-decoration: underline;">Read Full Rules &amp; Regulations</a>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label style="display: flex; gap: 10px; font-weight: normal;">
-                                        <input type="checkbox" name="entry.1126227853" value="Yes, I have read and understood them." required style="width: auto;">
+                                        <input type="checkbox" id="reg-declaration" required style="width: auto;">
                                         <span>Yes, I have read and understood the rules and regulations. *</span>
                                     </label>
                                 </div>
@@ -367,17 +371,7 @@
                             </div>
                         </form>
 
-                        <div id="success-overlay" class="mt-40">
-                            <div class="icon-box md" style="margin: 0 auto 20px; background: rgba(0, 128, 0, 0.1); color: green;">
-                                <i data-lucide="check-circle"></i>
-                            </div>
-                            <h2>Registration Successful!</h2>
-                            <p class="lead">Thank you for enrolling at Detmax. Your application has been received.</p>
-                            <p>Our enrollment officer will contact you within 24 hours to confirm your intake details and payment instructions.</p>
-                            <div class="mt-40">
-                                <a href="/" class="btn btn-primary">Back to Home</a>
-                            </div>
-                        </div>
+                        <!-- success is now shown inline above the form -->
                     </div>
                 </div>
             </section>
@@ -390,7 +384,6 @@
     <script>
         let currentStep = 1;
         const totalSteps = 5;
-        let submitted = false;
 
         function startRegistration() {
             document.getElementById('registration-splash').style.opacity = '0';
@@ -404,48 +397,76 @@
             const btnNext = document.getElementById('btn-next');
             const btnPrev = document.getElementById('btn-prev');
             const btnSubmit = document.getElementById('btn-submit');
-            
-            // Handle Date inputs splitting into Google Form fields
-            const dobInput = document.getElementById('dob-input');
-            const startDateInput = document.getElementById('start-date-input');
-
-            function updateDateFields(input, dayId, monthId, yearId) {
-                if(input.value) {
-                    // Use string split to avoid timezone shifts from new Date()
-                    const [year, month, day] = input.value.split('-');
-                    document.getElementById(dayId).value = day;
-                    document.getElementById(monthId).value = parseInt(month, 10);
-                    document.getElementById(yearId).value = year;
-                }
-            }
-
-            // Sync dates whenever they change
-            dobInput.addEventListener('change', () => updateDateFields(dobInput, 'dob-day', 'dob-month', 'dob-year'));
-            startDateInput.addEventListener('change', () => updateDateFields(startDateInput, 'start-day', 'start-month', 'start-year'));
 
             btnNext.onclick = () => {
                 if (validateStep(currentStep)) {
-                    if (currentStep < totalSteps) {
-                        goToStep(currentStep + 1);
-                    }
+                    if (currentStep < totalSteps) goToStep(currentStep + 1);
                 }
             };
 
             btnPrev.onclick = () => {
-                if (currentStep > 1) {
-                    goToStep(currentStep - 1);
-                }
+                if (currentStep > 1) goToStep(currentStep - 1);
             };
 
-            form.onsubmit = () => {
-                // Final sync just in case
-                updateDateFields(dobInput, 'dob-day', 'dob-month', 'dob-year');
-                updateDateFields(startDateInput, 'start-day', 'start-month', 'start-year');
-                
-                document.getElementById('submitting-overlay').style.display = 'flex';
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!validateStep(currentStep)) return;
+
+                // Collect all values
+                const fullName    = document.getElementById('reg-fullName').value.trim();
+                const gender      = document.getElementById('reg-gender').value;
+                const dob         = document.getElementById('dob-input').value;
+                const idNumber    = document.getElementById('reg-idNumber').value.trim();
+                const phone       = document.getElementById('reg-phone').value.trim();
+                const email       = document.getElementById('reg-email').value.trim();
+                const address     = document.getElementById('reg-address').value.trim();
+                const course      = document.getElementById('reg-course').value;
+                const startDate   = document.getElementById('start-date-input').value;
+                const scheduleEl  = document.querySelector('input[name="reg-schedule"]:checked');
+                const schedule    = scheduleEl ? scheduleEl.value : '';
+                const emergencyName     = document.getElementById('reg-emergencyName').value.trim();
+                const emergencyPhone    = document.getElementById('reg-emergencyPhone').value.trim();
+                const emergencyRelation = document.getElementById('reg-emergencyRelation').value.trim();
+                const referral    = document.getElementById('reg-referral').value;
+                const referredBy  = document.getElementById('reg-referredBy').value.trim();
+
+                // Show loading overlay
+                const overlay = document.getElementById('submitting-overlay');
+                overlay.style.display = 'flex';
                 animateLoading();
-                submitted = true;
-            };
+
+                const errorBox = document.getElementById('enroll-error');
+                const errorMsg = document.getElementById('enroll-error-msg');
+
+                try {
+                    const res = await fetch('/api/send-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            type: 'enrollment',
+                            fullName, gender, dob, idNumber, phone, email, address,
+                            course, startDate, schedule,
+                            emergencyName, emergencyPhone, emergencyRelation,
+                            referral, referredBy
+                        }),
+                    });
+                    const data = await res.json();
+                    overlay.style.display = 'none';
+
+                    if (res.ok && data.success) {
+                        showSuccess();
+                    } else {
+                        errorMsg.textContent = data.error || 'Something went wrong. Please try again.';
+                        errorBox.style.display = 'block';
+                        errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } catch (err) {
+                    overlay.style.display = 'none';
+                    errorMsg.textContent = 'Network error. Please check your connection and try again.';
+                    errorBox.style.display = 'block';
+                    errorBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
 
             function animateLoading() {
                 const line = document.getElementById('loader-line');
@@ -464,15 +485,12 @@
             }
 
             function goToStep(step) {
-                // UI transition
                 document.getElementById(`step-${currentStep}`).classList.remove('active');
                 document.getElementById(`step-${step}`).classList.add('active');
-                
-                // Update Progress Bar
+
                 const progress = (step / totalSteps) * 100;
                 document.getElementById('registration-progress-bar').style.width = progress + '%';
-                
-                // Update Meta Text
+
                 const stepNames = [
                     "Personal Information",
                     "Course Details",
@@ -483,12 +501,10 @@
                 document.getElementById('step-name').innerText = stepNames[step - 1];
                 document.getElementById('step-counter').innerText = `Step ${step} of 5`;
 
-                // Update currentStep variable
                 currentStep = step;
 
-                // Update buttons
                 btnPrev.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
-                if(currentStep === totalSteps) {
+                if (currentStep === totalSteps) {
                     btnNext.style.display = 'none';
                     btnSubmit.style.display = 'block';
                 } else {
@@ -496,14 +512,12 @@
                     btnSubmit.style.display = 'none';
                 }
 
-                // Smooth scroll to top of form
                 document.querySelector('.registration-container').scrollIntoView({ behavior: 'smooth' });
             }
 
             function validateStep(step) {
                 const stepElement = document.getElementById(`step-${step}`);
                 if (!stepElement) return true;
-                
                 const inputs = stepElement.querySelectorAll('input[required], select[required], textarea[required]');
                 let valid = true;
                 inputs.forEach(input => {
@@ -538,8 +552,9 @@
             document.getElementById('enrollment-form').style.display = 'none';
             document.querySelector('.registration-progress-container').style.display = 'none';
             document.querySelector('.progress-meta').style.display = 'none';
-            document.querySelector('.section-title').innerText = "Enrollment Success";
-            document.getElementById('success-overlay').style.display = 'block';
+            document.querySelector('.section-title').innerText = "Enrollment Received!";
+            document.getElementById('enroll-success').style.display = 'block';
+            document.getElementById('enroll-success').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
