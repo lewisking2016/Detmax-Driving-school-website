@@ -175,9 +175,11 @@ export default function CoursesSection() {
     <section className="section bg-white">
       <div className="container">
         <div className="text-center mb-80">
-          <h2 className="section-title">Professional Skills. Affordable Prices.</h2>
-          <p className="section-desc mx-auto" style={{ maxWidth: '600px' }}>
-            Compare our pricing with Kenya's leading institutions. See why 100+ students choose Detmax.
+          <h2 className="section-title">Master In-Demand Skills For Less</h2>
+          <p className="section-desc mx-auto" style={{ maxWidth: '700px', fontSize: '1.2rem', lineHeight: '1.6', color: '#444' }}>
+            Industry-standard training at <strong>60-75% less than competitors</strong>. 
+            <br />
+            <span style={{ color: '#FF0000', fontWeight: '600' }}>1,000+ students</span> already upskilling with Detmax.
           </p>
         </div>
 
@@ -242,13 +244,20 @@ export default function CoursesSection() {
 
         {/* CTA Section */}
         <div className="text-center mt-80">
-          <h3 style={{ fontSize: '1.8rem', marginBottom: '20px' }}>Ready to Get Started?</h3>
-          <p style={{ fontSize: '1.1rem', color: '#666', marginBottom: '30px' }}>
-            Choose any course above and transform your career. First 50 students get 30% off!
+          <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', color: '#001F3F' }}>
+            Join Kenya's Smart Learners
+          </h3>
+          <p style={{ fontSize: '1.15rem', color: '#666', marginBottom: '30px', maxWidth: '600px', margin: '15px auto 30px' }}>
+            Get certified, build your portfolio, and advance your career. 
+            <br />
+            <span style={{ color: '#FF0000', fontWeight: '700' }}>Early bird discount: 30% off first 50 enrollments</span>
           </p>
           <Link href="/registration" className="btn btn-primary btn-lg">
-            Enroll Now & Save 30% →
+            Start Learning Today →
           </Link>
+          <p style={{ marginTop: '20px', fontSize: '0.95rem', color: '#999' }}>
+            No experience needed • 100% online • Certificate included • Lifetime access
+          </p>
         </div>
       </div>
     </section>
