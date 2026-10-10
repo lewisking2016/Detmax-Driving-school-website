@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+DEPLOYMENT_SUMMARY.txt
+NEXTJS_MIGRATION_COMPLETE.md
+*.md
+.agents
+.vscode
+.DS_Store
