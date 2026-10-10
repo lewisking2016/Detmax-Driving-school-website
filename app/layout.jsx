@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
       </head>
       <body className="home-page">
-        {/* Preloader */}
+        {/* Preloader with Timeout */}
         <div id="preloader">
           <img src="/logo.jpeg" alt="Detmax Logo" className="loader-logo" />
           <div className="loader-text" style={{ color: 'white', fontWeight: 700, letterSpacing: '2px' }}>DETMAX</div>
@@ -58,9 +58,25 @@ export default function RootLayout({ children }) {
           </button>
         </div>
 
+        {/* Preloader Timeout Script - Fast, inline removal */}
+        <Script id="preloader-timeout" strategy="beforeInteractive">
+          {`
+            window.addEventListener('load', () => {
+              setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                  preloader.style.opacity = '0';
+                  preloader.style.transition = 'opacity 0.3s ease';
+                  setTimeout(() => preloader.style.display = 'none', 300);
+                }
+              }, 600);
+            });
+          `}
+        </Script>
+
         <Script src="https://unpkg.com/lucide@latest" defer />
-        <Script src="/src/js/navbar.js" strategy="lazyOnload" />
-        <Script src="/src/js/footer.js" strategy="lazyOnload" />
+        <Script src="/src/js/navbar.js" strategy="afterInteractive" />
+        <Script src="/src/js/footer.js" strategy="afterInteractive" />
         <Script src="/src/js/main.js" strategy="lazyOnload" type="module" />
       </body>
     </html>
