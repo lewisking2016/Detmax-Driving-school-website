@@ -2,6 +2,9 @@ import { Inter, Montserrat } from 'next/font/google'
 import '../src/css/style.css'
 import '../src/css/chatbot.css'
 import Script from 'next/script'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import ScriptInitializer from '@/components/ScriptInitializer'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-main' })
@@ -39,9 +42,9 @@ export default function RootLayout({ children }) {
         </div>
 
         <div id="app">
-          <div id="navbar-placeholder"></div>
+          <Navbar />
           {children}
-          <div id="footer-placeholder"></div>
+          <Footer />
         </div>
 
         {/* Floating Actions */}
@@ -58,7 +61,7 @@ export default function RootLayout({ children }) {
           </button>
         </div>
 
-        {/* Preloader Timeout Script - Fast, inline removal */}
+        {/* Preloader Timeout Script - 3 second max */}
         <Script id="preloader-timeout" strategy="beforeInteractive">
           {`
             window.addEventListener('load', () => {
@@ -69,15 +72,14 @@ export default function RootLayout({ children }) {
                   preloader.style.transition = 'opacity 0.3s ease';
                   setTimeout(() => preloader.style.display = 'none', 300);
                 }
-              }, 600);
+              }, 3000);
             });
           `}
         </Script>
 
         <Script src="https://unpkg.com/lucide@latest" defer />
-        <Script src="/src/js/navbar.js" strategy="afterInteractive" />
-        <Script src="/src/js/footer.js" strategy="afterInteractive" />
-        <Script src="/src/js/main.js" strategy="lazyOnload" type="module" />
+        
+        <ScriptInitializer />
       </body>
     </html>
   )
