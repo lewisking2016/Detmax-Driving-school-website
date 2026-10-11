@@ -59,7 +59,7 @@ export const initChatbotComponent = () => {
     const chatbotHTML = `
     <!-- Tooltip -->
     <div class="chatbot-tooltip" id="chatbotTooltip">
-        For Q&A chat here 💬
+        For Q&A chat here
     </div>
 
     <!-- Chatbot Toggle Button -->

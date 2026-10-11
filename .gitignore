@@ -40,7 +40,7 @@ Thumbs.db
 !README.md
 
 # Old files
-courses/
+/courses/
 .agents/
 api/
 vite.config.js
