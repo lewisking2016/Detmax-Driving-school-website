@@ -8,7 +8,7 @@ export default function TestimonialSection() {
       location: 'Nairobi',
       course: 'NTSA Driving Course',
       rating: 5,
-      quote: 'The driving instructors were patient and meticulous with defensive maneuvers. Passed my NTSA test on the first attempt with zero anxiety!',
+      quote: 'The driving instructors were patient and meticulous with defensive maneuvers. Passed my NTSA test on the first attempt with zero anxiety.',
     },
     {
       name: 'John Mwangi',
@@ -37,19 +37,21 @@ export default function TestimonialSection() {
   ]
 
   return (
-    <section className="section bg-navy text-white" style={{ padding: '95px 0', position: 'relative', overflow: 'hidden' }}>
-      <div className="container text-center">
-        <div className="section-eyebrow" style={{ background: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)', color: '#FFFFFF' }}>
-          <span>Real Graduate Feedback</span>
+    <section className="section bg-navy text-white" style={{ padding: '110px 0', background: '#001F3F' }}>
+      <div className="container">
+        <div className="text-center" style={{ maxWidth: '720px', margin: '0 auto 50px' }}>
+          <div className="section-eyebrow" style={{ borderColor: '#FFFFFF', color: '#FFFFFF' }}>
+            <span>Real Graduate Feedback</span>
+          </div>
+          <h2 className="section-title text-white">What Our Students Say</h2>
+          <p style={{ color: 'rgba(255,255,255,0.78)', fontSize: '1.08rem', lineHeight: 1.65 }}>
+            Hear from graduates across Kenya who built confidence on the road and launched high-value digital careers.
+          </p>
         </div>
-        <h2 className="section-title text-white">What Our Students Say</h2>
-        <p className="section-desc mx-auto" style={{ color: 'rgba(255,255,255,0.85)', marginBottom: '10px' }}>
-          Hear from graduates across Kenya who built confidence on the road and launched high-value digital careers.
-        </p>
 
         <div className="testimonial-grid">
-          {testimonials.map((item, idx) => (
-            <div key={idx} className="testimonial-card">
+          {testimonials.map((item) => (
+            <div key={item.name} className="testimonial-card">
               <div>
                 <div className="star-rating" style={{ display: 'flex', gap: '3px', marginBottom: '14px' }}>
                   {[...Array(item.rating)].map((_, i) => (
@@ -58,21 +60,33 @@ export default function TestimonialSection() {
                     </svg>
                   ))}
                 </div>
-                <p className="testimonial-quote">
-                  "{item.quote}"
-                </p>
+                <p className="testimonial-quote">"{item.quote}"</p>
               </div>
 
               <div className="testimonial-author-box">
-                <div className="avatar-circle">
-                  {item.initials}
-                </div>
+                <div className="avatar-circle">{item.initials}</div>
                 <div className="author-info">
                   <h4>{item.name}</h4>
-                  <span>{item.location} • {item.course}</span>
+                  <span style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.65)' }}>
+                    {item.location} · {item.course}
+                  </span>
                 </div>
-                <div className="verified-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <div
+                  style={{
+                    marginLeft: 'auto',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#86efac',
+                    border: '1px solid #86efac',
+                    padding: '3px 8px',
+                  }}
+                >
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Verified
