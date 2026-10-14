@@ -174,7 +174,7 @@ export default function DrivingSchool() {
                 ))}
               </div>
 
-              <Link href="/registration" className="btn btn-primary btn-block btn-lg" style={{ marginBottom: '12px' }}>
+              <Link href="/application" className="btn btn-primary btn-block btn-lg" style={{ marginBottom: '12px' }}>
                 Book Your Driving Seat Now →
               </Link>
               <a
@@ -283,7 +283,7 @@ export default function DrivingSchool() {
           <p style={{ fontSize: '1.12rem', color: 'rgba(255,255,255,0.82)', maxWidth: '600px', margin: '0 auto 32px', lineHeight: 1.7 }}>
             Enroll today for 13,000 KES. Flexible installment options available.
           </p>
-          <Link href="/registration" className="btn btn-primary btn-lg">
+          <Link href="/application" className="btn btn-primary btn-lg">
             Enroll Now for Driving Training →
           </Link>
         </div>

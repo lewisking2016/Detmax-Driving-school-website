@@ -104,7 +104,7 @@ export default function HeroSection() {
           style={{ marginTop: '32px', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}
         >
           {[
-            { label: 'KRA PIN: P051811093F', color: '#FF3333' },
+            { label: 'KRA PIN: P051811093F', color: '#DC2626' },
             { label: 'NTSA Certified', color: '#22c55e' },
             { label: '1,000+ Students', color: '#60a5fa' },
             { label: 'All 47 Counties', color: '#fbbf24' },

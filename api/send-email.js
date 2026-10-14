@@ -1,13 +1,17 @@
 import nodemailer from 'nodemailer';
 
 // ── SMTP Transporter ──────────────────────────────────────────────────────────
+// Credentials can be overridden with SMTP_HOST / SMTP_PORT / SMTP_USER /
+// SMTP_PASS (e.g. Vercel environment variables) so the mailbox password can be
+// rotated without a code change. The literals remain as a fallback so the
+// existing deployment keeps sending without any dashboard configuration.
 const transporter = nodemailer.createTransport({
-  host: 'my.mailbux.com',
-  port: 587,
-  secure: false,
+  host: process.env.SMTP_HOST || 'my.mailbux.com',
+  port: Number(process.env.SMTP_PORT || 587),
+  secure: String(process.env.SMTP_SECURE || 'false') === 'true',
   auth: {
-    user: 'info@detmaxinstitute.co.ke',
-    pass: 'Detmax.2026.',
+    user: process.env.SMTP_USER || 'info@detmaxinstitute.co.ke',
+    pass: process.env.SMTP_PASS || 'Detmax.2026.',
   },
   tls: { rejectUnauthorized: false },
 });
@@ -143,6 +147,38 @@ function enrollmentAutoReply(name, course, phone) {
   return emailShell(body, `Welcome to Detmax, ${name}! Your enrollment has been received.`);
 }
 
+function applicationAutoReply(name, course, wantsUpdates) {
+  const body = `
+    <tr><td style="padding:32px 32px 0;">
+      <div style="display:inline-block;background:#001F3F;color:#FFFFFF;padding:6px 14px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border-left:3px solid #DC2626;">Application Received</div>
+      <h1 style="font-size:24px;font-weight:800;color:#001F3F;margin:20px 0 8px;letter-spacing:-0.01em;line-height:1.25;">Thank you, ${name}.</h1>
+      <p style="font-size:15px;line-height:1.7;color:#334155;margin:0 0 20px;">We have received your course application for <strong>${course || 'your selected programme'}</strong> at <strong>Detmax Driving School &amp; Computer College</strong>. Our admissions team reviews every application within <strong>24 hours</strong>.</p>
+    </td></tr>
+    <tr><td style="padding:0 32px 24px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border:1px solid #E2E8F0;border-left:3px solid #001F3F;">
+        <tr><td style="padding:18px 22px;">
+          <div style="font-size:10px;letter-spacing:0.18em;color:#64748B;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Application Summary</div>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr><td style="padding:4px 0;font-size:13px;color:#64748B;width:42%;">Applicant</td><td style="padding:4px 0;font-size:14px;color:#001F3F;font-weight:600;">${name}</td></tr>
+            <tr><td style="padding:4px 0;font-size:13px;color:#64748B;">Course Applied For</td><td style="padding:4px 0;font-size:14px;color:#001F3F;font-weight:600;">${course || 'Not specified'}</td></tr>
+            <tr><td style="padding:4px 0;font-size:13px;color:#64748B;">Intake Updates</td><td style="padding:4px 0;font-size:14px;color:#001F3F;font-weight:600;">${wantsUpdates ? 'Subscribed' : 'Not requested'}</td></tr>
+            <tr><td style="padding:4px 0;font-size:13px;color:#64748B;">Status</td><td style="padding:4px 0;font-size:14px;color:#001F3F;font-weight:700;">Under Review</td></tr>
+          </table>
+        </td></tr>
+      </table>
+    </td></tr>
+    ${wantsUpdates ? `<tr><td style="padding:0 32px 20px;"><p style="font-size:14px;line-height:1.7;color:#334155;margin:0;">You will be notified by email as soon as a new intake opens for your selected course, so you can reserve a slot before it fills.</p></td></tr>` : ''}
+    <tr><td style="padding:8px 32px 24px;">
+      <p style="font-size:14px;line-height:1.7;color:#334155;margin:0 0 20px;">Once your application is approved, complete your official enrollment to lock in your place and receive your payment instructions.</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 24px;"><tr><td style="background:#DC2626;">
+        <a href="https://detmaxinstitute.co.ke/registration" style="display:inline-block;padding:14px 28px;color:#FFFFFF;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:0.04em;">Complete Enrollment →</a>
+      </td></tr></table>
+      <p style="font-size:14px;line-height:1.7;color:#334155;margin:0;">Questions? Reply to this email or call <a href="tel:+254111379171" style="color:#001F3F;font-weight:700;text-decoration:none;">+254 111 379171</a>.</p>
+    </td></tr>
+  `;
+  return emailShell(body, `Application received, ${name}. Detmax reviews it within 24 hours.`);
+}
+
 function adminInquiryEmail(data) {
   const rows = Object.entries(data)
     .filter(([, v]) => v)
@@ -160,7 +196,7 @@ function adminInquiryEmail(data) {
   `, 'New website inquiry submitted');
 }
 
-function adminEnrollmentEmail(data) {
+function adminEnrollmentEmail(data, title = 'New Enrollment Application', subtitle = 'Submitted via detmaxinstitute.co.ke/registration') {
   const rows = Object.entries(data)
     .map(([k, v]) => {
       if (k.startsWith('──')) return `<tr><td colspan="2" style="padding:18px 0 6px;font-size:10px;color:#DC2626;text-transform:uppercase;letter-spacing:0.18em;font-weight:700;border-bottom:2px solid #001F3F;">${k.replace(/──/g, '').trim()}</td></tr>`;
@@ -170,8 +206,8 @@ function adminEnrollmentEmail(data) {
   return emailShell(`
     <tr><td style="padding:28px 32px;border-bottom:1px solid #E2E8F0;">
       <div style="font-size:10px;letter-spacing:0.18em;color:#DC2626;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Website Lead</div>
-      <h1 style="font-size:22px;font-weight:800;color:#001F3F;margin:0;letter-spacing:-0.01em;">New Enrollment Application</h1>
-      <div style="font-size:12px;color:#64748B;margin-top:4px;">Submitted via detmaxinstitute.co.ke/registration</div>
+      <h1 style="font-size:22px;font-weight:800;color:#001F3F;margin:0;letter-spacing:-0.01em;">${title}</h1>
+      <div style="font-size:12px;color:#64748B;margin-top:4px;">${subtitle}</div>
     </td></tr>
     <tr><td style="padding:24px 32px 32px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0">${rows}</table>
@@ -268,6 +304,49 @@ export default async function handler(req, res) {
         to: email,
         subject: '🎉 Enrollment Confirmed — Detmax Driving School & Computer College',
         html: enrollmentAutoReply(fullName, course, phone),
+      });
+
+      return res.status(200).json({ success: true });
+
+    } else if (type === 'application') {
+      const {
+        fullName, email, phone, county, category, course,
+        intake, notifyUpdates, referral, message
+      } = body;
+
+      if (!fullName || !phone || !email || !course) {
+        return res.status(400).json({ error: 'Required fields are missing.' });
+      }
+
+      await transporter.sendMail({
+        from: '"Detmax Applications" <info@detmaxinstitute.co.ke>',
+        to: 'info@detmaxinstitute.co.ke',
+        replyTo: email,
+        subject: `📝 New Course Application — ${fullName} | ${course}`,
+        html: adminEnrollmentEmail({
+          '── Applicant ──': '',
+          'Full Name': fullName,
+          'Phone (WhatsApp)': phone,
+          'Email Address': email,
+          'County / Town': county || 'Not provided',
+          '── Course Applied For ──': '',
+          'Programme': category || 'Not selected',
+          'Course': course,
+          'Preferred Intake': intake || 'Next available',
+          'Wants Intake Updates': notifyUpdates ? 'Yes — notify when new intakes open' : 'No',
+          '── Message ──': '',
+          'Notes From Applicant': message || 'No additional notes',
+          'Heard About Us Via': referral || 'Not provided',
+          '── Meta ──': '',
+          'Submitted At': new Date().toLocaleString('en-KE', { timeZone: 'Africa/Nairobi' }),
+        }, 'New Course Application', 'Submitted via detmaxinstitute.co.ke/application'),
+      });
+
+      await transporter.sendMail({
+        from: '"Detmax Institute" <info@detmaxinstitute.co.ke>',
+        to: email,
+        subject: '🎯 Application Received — Detmax Driving School & Computer College',
+        html: applicationAutoReply(fullName, course, Boolean(notifyUpdates)),
       });
 
       return res.status(200).json({ success: true });

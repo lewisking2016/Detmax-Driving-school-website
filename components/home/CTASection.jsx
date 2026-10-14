@@ -21,7 +21,7 @@ export default function CTASection() {
           </p>
 
           <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/registration" className="btn btn-primary btn-lg">
+            <Link href="/application" className="btn btn-primary btn-lg">
               Enroll Now — Claim 30% Off
             </Link>
             <a

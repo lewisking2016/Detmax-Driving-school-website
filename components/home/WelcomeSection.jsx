@@ -72,14 +72,12 @@ export default function WelcomeSection() {
               style={{ width: '100%', display: 'block', border: '1px solid #E2E8F0' }}
             />
             <div
+              className="welcome-badge"
               style={{
-                position: 'absolute',
-                bottom: '-20px',
-                left: '-20px',
-                background: '#001F3F',
+                background: 'var(--navy-700)',
                 color: '#FFFFFF',
-                padding: '20px 24px',
-                borderLeft: '4px solid #DC2626',
+                padding: '18px 24px',
+                borderLeft: '4px solid var(--red-500)',
               }}
             >
               <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)' }}>

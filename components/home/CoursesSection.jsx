@@ -335,7 +335,7 @@ export default function CoursesSection() {
             Gain job-ready skills with verifiable certificates and live mentor support.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/registration" className="btn btn-primary btn-lg">
+            <Link href="/application" className="btn btn-primary btn-lg">
               Start Learning Today →
             </Link>
             <a

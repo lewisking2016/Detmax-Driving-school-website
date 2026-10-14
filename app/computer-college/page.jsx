@@ -228,7 +228,7 @@ export default function ComputerCollege() {
                   <Link href={course.link} className="btn btn-secondary" style={{ flex: 1, padding: '12px 16px', fontSize: '0.88rem' }}>
                     View Syllabus →
                   </Link>
-                  <Link href="/registration" className="btn btn-primary" style={{ padding: '12px 18px', fontSize: '0.88rem' }}>
+                  <Link href="/application" className="btn btn-primary" style={{ padding: '12px 18px', fontSize: '0.88rem' }}>
                     Enroll
                   </Link>
                 </div>
@@ -279,7 +279,7 @@ export default function ComputerCollege() {
             Limited to the first 50 registrations across Kenya. Reserve your slot now and start immediately.
           </p>
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/registration" className="btn btn-primary btn-lg">
+            <Link href="/application" className="btn btn-primary btn-lg">
               Claim 30% Discount &amp; Enroll →
             </Link>
             <a href="https://wa.me/18013195465?text=Hello%20Detmax,%20I%20want%20to%20enroll%20in%20Computer%20College" target="_blank" rel="noopener noreferrer" className="btn btn-white btn-lg">

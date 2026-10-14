@@ -1,195 +1,53 @@
 'use client'
 
 import { useEffect } from 'react'
-import * as THREE from 'three'
+import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+// Module scope on purpose: survives StrictMode's double effect invocation so
+// the DOM bootstrapping runs exactly once per page load.
+let didBoot = false
+
 export default function ScriptInitializer() {
+  // This component lives in the ROOT layout, which Next keeps mounted across
+  // client-side navigation. The hero canvas, however, only exists on routes
+  // that render <HeroSection>, and React destroys and recreates that element
+  // on every visit. Keying the scene effect on the pathname is what makes the
+  // globe reappear after you navigate away and come back: without it the init
+  // ran once per hard page load, so returning to the homepage mounted a fresh
+  // <canvas> that nothing was rendering into - the globe looked lost.
+  const pathname = usePathname()
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
-    // Scene Setup - Only if hero canvas exists
+    // Hero 3D scene - loaded lazily.
+    // three.js is ~508 kB and only drives a decorative animation, so a static
+    // import here put it in the initial bundle of every route. The dynamic
+    // import below keeps it in its own chunk, and the hero still has a CSS
+    // gradient backdrop when WebGL is unavailable.
     const heroCanvas = document.querySelector('#hero-canvas')
+    let disposeScene = null
+    let unmounted = false
+
     if (heroCanvas) {
-      // Guard: if a renderer was already attached, kill it first to avoid
-      // the "lost on route change" bug (multiple WebGL contexts fighting).
-      if (heroCanvas.__threeRenderer) {
-        try {
-          heroCanvas.__threeRenderer.dispose()
-        } catch (e) { /* noop */ }
-        heroCanvas.__threeRenderer = null
-      }
-
-      const scene = new THREE.Scene()
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-      const renderer = new THREE.WebGLRenderer({
-        canvas: heroCanvas,
-        antialias: true,
-        alpha: true,
-        powerPreference: 'high-performance',
-      })
-
-      // Mark the canvas so we can clean it up next time
-      heroCanvas.__threeRenderer = renderer
-
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-      renderer.setSize(window.innerWidth, window.innerHeight)
-      camera.position.setZ(30)
-
-      // Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-      scene.add(ambientLight)
-
-      const pointLight = new THREE.PointLight(0xffffff, 1)
-      pointLight.position.set(20, 20, 20)
-      scene.add(pointLight)
-
-      // Add a 3D Wireframe Globe
-      const globeGeometry = new THREE.SphereGeometry(25, 32, 32)
-      const globeMaterial = new THREE.MeshBasicMaterial({
-        color: 0x003366,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.18
-      })
-      const globe = new THREE.Mesh(globeGeometry, globeMaterial)
-      scene.add(globe)
-
-      // Inner solid globe for depth
-      const innerGlobe = new THREE.Mesh(
-        new THREE.SphereGeometry(24.5, 32, 32),
-        new THREE.MeshBasicMaterial({ color: 0x001f3f, transparent: true, opacity: 0.35 })
-      )
-      scene.add(innerGlobe)
-
-      // Glow ring around globe
-      const ringGeometry = new THREE.RingGeometry(26, 28, 64)
-      const ringMaterial = new THREE.MeshBasicMaterial({
-        color: 0xff3333,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.18,
-      })
-      const ring = new THREE.Mesh(ringGeometry, ringMaterial)
-      ring.rotation.x = Math.PI / 2
-      scene.add(ring)
-
-      // Parallax Effect — keep the "active mouse" feel
-      const onMouseMove = (e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2
-        const y = (e.clientY / window.innerHeight - 0.5) * 2
-
-        gsap.to(camera.position, {
-          x: x * 5,
-          y: -y * 5,
-          duration: 1.6,
-          ease: 'power2.out',
-          overwrite: 'auto',
+      import('@/components/hero-scene')
+        .then(({ initHeroScene }) => {
+          if (unmounted) return
+          disposeScene = initHeroScene(heroCanvas)
         })
-
-        gsap.to(globe.rotation, {
-          x: y * 0.3,
-          y: globe.rotation.y + x * 0.0005,
-          duration: 1.6,
-          ease: 'power2.out',
-          overwrite: 'auto',
+        .catch((error) => {
+          console.warn('[Detmax] Hero 3D scene unavailable - using CSS fallback.', error)
+          heroCanvas.style.display = 'none'
         })
-      }
-      window.addEventListener('mousemove', onMouseMove)
-
-      // Background Particles
-      const particlesGeometry = new THREE.BufferGeometry()
-      const particlesCount = 3500
-      const posArray = new Float32Array(particlesCount * 3)
-      const colorArray = new Float32Array(particlesCount * 3)
-
-      for (let i = 0; i < particlesCount * 3; i += 3) {
-        posArray[i] = (Math.random() - 0.5) * 120
-        posArray[i + 1] = (Math.random() - 0.5) * 120
-        posArray[i + 2] = (Math.random() - 0.5) * 120
-        const r = Math.random() > 0.5 ? 1 : 0
-        const b = r === 0 ? 1 : 0.5
-        colorArray[i] = r
-        colorArray[i + 1] = 0
-        colorArray[i + 2] = b
-      }
-
-      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
-      particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3))
-
-      const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.05,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.65
-      })
-
-      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial)
-      scene.add(particlesMesh)
-
-      // Animation Loop — single source of truth, killable.
-      let rafId = 0
-      let cancelled = false
-      function animate() {
-        if (cancelled) return
-        rafId = requestAnimationFrame(animate)
-        particlesMesh.rotation.y += 0.001
-        particlesMesh.rotation.x += 0.0005
-        globe.rotation.y += 0.0025
-        innerGlobe.rotation.y -= 0.0015
-        ring.rotation.z += 0.001
-        renderer.render(scene, camera)
-      }
-      animate()
-
-      // Handle Resize
-      const handleResize = () => {
-        camera.aspect = window.innerWidth / window.innerHeight
-        camera.updateProjectionMatrix()
-        renderer.setSize(window.innerWidth, window.innerHeight)
-      }
-      window.addEventListener('resize', handleResize)
-
-      // Visibility — pause when tab hidden, resume when visible.
-      const onVisibility = () => {
-        if (document.hidden) {
-          cancelAnimationFrame(rafId)
-        } else if (!cancelled) {
-          animate()
-        }
-      }
-      document.addEventListener('visibilitychange', onVisibility)
-
-      // CLEANUP — properly dispose of Three.js resources
-      return () => {
-        cancelled = true
-        cancelAnimationFrame(rafId)
-        window.removeEventListener('resize', handleResize)
-        window.removeEventListener('mousemove', onMouseMove)
-        document.removeEventListener('visibilitychange', onVisibility)
-
-        try {
-          scene.traverse((obj) => {
-            if (obj.geometry) obj.geometry.dispose()
-            if (obj.material) {
-              if (Array.isArray(obj.material)) {
-                obj.material.forEach((m) => m.dispose())
-              } else {
-                obj.material.dispose()
-              }
-            }
-          })
-          renderer.dispose()
-          renderer.forceContextLoss?.()
-        } catch (e) { /* noop */ }
-
-        if (heroCanvas.__threeRenderer === renderer) {
-          heroCanvas.__threeRenderer = null
-        }
-      }
     }
-  }, [])
+
+    return () => {
+      unmounted = true
+      if (typeof disposeScene === 'function') disposeScene()
+    }
+  }, [pathname])
 
   useEffect(() => {
     // GSAP Animations
@@ -294,22 +152,9 @@ export default function ScriptInitializer() {
       }
     }
 
-    // FAQ Accordion
-    const initFaq = () => {
-      document.querySelectorAll('.faq-question').forEach((btn) => {
-        if (btn.__faqBound) return
-        btn.__faqBound = true
-        btn.addEventListener('click', () => {
-          const item = btn.closest('.faq-item')
-          if (!item) return
-          const isOpen = item.classList.contains('open')
-          document.querySelectorAll('.faq-item.open').forEach((other) => {
-            if (other !== item) other.classList.remove('open')
-          })
-          item.classList.toggle('open', !isOpen)
-        })
-      })
-    }
+    // FAQ: the accordion is a React component (FAQSection) that owns its own
+    // open/closed state. Binding a second click handler here double-toggled
+    // every question, so it has been removed.
 
     // Inquiry form -> /api/send-email
     const initInquiryForm = () => {
@@ -460,11 +305,98 @@ export default function ScriptInitializer() {
       }
     }
 
+    // Elite custom cursor - the dot + trailing ring that followed the pointer
+    // before the Next.js migration. The styles survived in style.css, the JS
+    // did not. `has-custom-cursor` is what hides the native pointer, and it is
+    // only set once these elements exist, so a JS failure can never leave a
+    // visitor with no cursor at all.
+    const initCustomCursor = () => {
+      if (typeof window === 'undefined') return
+      if (window.matchMedia('(pointer: coarse)').matches) return // touch devices keep theirs
+      if (document.querySelector('.cursor-dot')) return
+
+      const dot = document.createElement('div')
+      const ring = document.createElement('div')
+      dot.className = 'cursor-dot'
+      ring.className = 'cursor-outline'
+      dot.setAttribute('aria-hidden', 'true')
+      ring.setAttribute('aria-hidden', 'true')
+      document.body.append(dot, ring)
+      document.documentElement.classList.add('has-custom-cursor')
+
+      // quickTo keeps the follow smooth without spawning a tween per mousemove.
+      const dotX = gsap.quickTo(dot, 'x', { duration: 0.08, ease: 'power3' })
+      const dotY = gsap.quickTo(dot, 'y', { duration: 0.08, ease: 'power3' })
+      const ringX = gsap.quickTo(ring, 'x', { duration: 0.42, ease: 'power3' })
+      const ringY = gsap.quickTo(ring, 'y', { duration: 0.42, ease: 'power3' })
+
+      // Visibility is written with immediate sets rather than tweens so the
+      // cursor can never be left stranded mid-transition by throttled frames.
+      let visible = false
+      let hovered = false
+      let pressed = false
+      const paint = () => {
+        gsap.set(dot, { opacity: visible ? 1 : 0 })
+        gsap.set(ring, { opacity: visible ? (pressed ? 0.85 : hovered ? 1 : 0.5) : 0 })
+        gsap.to(dot, { scale: hovered ? 1.6 : 1, duration: 0.2, overwrite: 'auto' })
+        gsap.to(ring, { scale: pressed ? 0.8 : hovered ? 1.55 : 1, duration: 0.25, overwrite: 'auto' })
+      }
+      paint()
+
+      const onMove = (e) => {
+        if (!visible) {
+          visible = true
+          paint()
+        }
+        dotX(e.clientX)
+        dotY(e.clientY)
+        ringX(e.clientX)
+        ringY(e.clientY)
+      }
+
+      const onOver = (e) => {
+        const target = e.target instanceof Element ? e.target : null
+        const interactive = Boolean(
+          target?.closest('a, button, input, select, textarea, label, [role="button"]')
+        )
+        if (interactive === hovered) return
+        hovered = interactive
+        dot.classList.toggle('cursor-active', hovered)
+        ring.classList.toggle('cursor-active', hovered)
+        paint()
+      }
+
+      const onLeave = () => {
+        visible = false
+        paint()
+      }
+
+      const onDown = () => {
+        pressed = true
+        paint()
+      }
+
+      const onUp = () => {
+        pressed = false
+        paint()
+      }
+
+      window.addEventListener('mousemove', onMove, { passive: true })
+      window.addEventListener('mouseover', onOver, { passive: true })
+      window.addEventListener('mousedown', onDown, { passive: true })
+      window.addEventListener('mouseup', onUp, { passive: true })
+      document.addEventListener('mouseleave', onLeave)
+      window.addEventListener('blur', onLeave)
+    }
+
     // Chatbot (FAQ line chat tool)
     const initChatbot = async () => {
       if (document.getElementById('chatbotToggle')) return
       try {
         const mod = await import('@/src/js/chatbot.js')
+        // Re-check after the await: two concurrent calls could both pass the
+        // check above before either finished importing.
+        if (document.getElementById('chatbotToggle')) return
         if (typeof mod.initChatbotComponent === 'function') {
           mod.initChatbotComponent()
         }
@@ -473,29 +405,27 @@ export default function ScriptInitializer() {
       }
     }
 
-    // Initialize all
+    // Initialize all - guarded by a module-scope flag because React StrictMode
+    // runs this effect twice in development, which previously injected a
+    // second navbar/handler set and a duplicate chatbot widget.
     const boot = () => {
+      if (didBoot) return
+      didBoot = true
+
       initAnimations()
       initNavbar()
       initMobileMenu()
+      initCustomCursor()
       initSlider()
       initBackToTop()
-      initFaq()
       initInquiryForm()
       initChatbot()
-
-      // Refresh Lucide icons
-      if (typeof window.lucide !== 'undefined') {
-        window.lucide.createIcons()
-      }
     }
 
-    setTimeout(boot, 100)
+    const bootTimer = setTimeout(boot, 100)
 
     return () => {
-      // No global listeners to remove here; per-element bindings are
-      // guarded with `.__faqBound` / `.__inquiryBound` flags so re-init
-      // is safe across client-side route changes.
+      clearTimeout(bootTimer)
     }
   }, [])
 

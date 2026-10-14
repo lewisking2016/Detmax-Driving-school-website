@@ -14,7 +14,7 @@ export default function Navbar() {
     { label: 'Driving School', href: '/driving-school', id: 'nav-driving' },
     { label: 'Courses', href: '/#courses', id: 'nav-courses' },
     { label: 'About', href: '/#about', id: 'nav-about' },
-    { label: 'Enrollment', href: '/registration', id: 'nav-enroll' },
+    { label: 'Contact Us', href: '/#inquiry', id: 'nav-contact' },
   ]
 
   const isActive = (href) => {
@@ -79,7 +79,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <Link href="/registration" className="btn btn-primary nav-cta">
+          <Link href="/application" className="btn btn-primary nav-cta">
             Enroll Now
           </Link>
 
@@ -126,7 +126,7 @@ export default function Navbar() {
         </ul>
 
         <div className="drawer-cta">
-          <Link href="/registration" className="btn btn-primary btn-block btn-lg" onClick={() => setMobileMenuOpen(false)}>
+          <Link href="/application" className="btn btn-primary btn-block btn-lg" onClick={() => setMobileMenuOpen(false)}>
             Enroll Now
           </Link>
         </div>

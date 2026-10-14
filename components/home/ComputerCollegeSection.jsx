@@ -47,7 +47,7 @@ export default function ComputerCollegeSection() {
               <Link href="/computer-college" className="btn btn-secondary">
                 View All 8 Courses →
               </Link>
-              <Link href="/registration" className="btn btn-primary">
+              <Link href="/application" className="btn btn-primary">
                 Enroll Online Now
               </Link>
             </div>

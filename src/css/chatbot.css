@@ -1,8 +1,11 @@
 /* Chatbot Styling */
+/* The toggle is a flow child of .floating-actions (see chatbot.js). It was
+   `position: fixed; bottom: 220px` via a style.css override, which placed it
+   inside the same vertical band as the other floating buttons and rendered it
+   interleaved between them. Size matches .float-btn. */
 .chatbot-toggle {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+    position: static;
+    flex: 0 0 auto;
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, var(--secondary-red), #cc0000);
@@ -15,8 +18,7 @@
     justify-content: center;
     box-shadow: 0 5px 15px rgba(255,0,0,0.3);
     z-index: 9999;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    animation: shakeAndGlow 4s infinite;
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 
 .chatbot-toggle:hover {
@@ -24,9 +26,9 @@
     box-shadow: 0 15px 30px rgba(0, 31, 63, 0.6);
 }
 
-.chatbot-toggle i {
-    width: 32px;
-    height: 32px;
+.chatbot-toggle svg {
+    width: 30px;
+    height: 30px;
 }
 
 .chatbot-toggle.hidden {
@@ -35,25 +37,55 @@
     pointer-events: none;
 }
 
-/* Push existing floating actions up if chatbot is there. 
-   Assuming floating actions are flex-col, we just let them co-exist. 
-   Usually whatsapp is bottom-left or bottom-right. 
-   If whatsapp is bottom-right, we will move Chatbot slightly or move Whatsapp */
-.floating-actions {
-    /* Modify existing floating actions to not overlap */
-    bottom: 110px !important;
+/* Ordering inside the shared stack. The column is bottom-anchored, so the
+   lowest item in source order renders lowest on screen: scroll-to-top, call,
+   chatbot, then WhatsApp (the primary contact action) at the bottom. */
+.floating-actions .btn-top { order: 1; }
+.floating-actions .btn-call { order: 2; }
+.floating-actions .chatbot-toggle { order: 3; }
+.floating-actions .btn-whatsapp { order: 4; }
+
+/* "For Q&A chat here" nudge. This element had no styles at all, so it used to
+   render as bare text in the document flow. It now sits beside the stack. */
+.chatbot-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    bottom: 4px;
+    width: max-content;
+    max-width: 220px;
+    background: var(--navy-900);
+    color: #FFFFFF;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+    /* `visibility` is intentionally not transitioned: interpolating it can
+       leave the bubble stuck hidden on browsers that throttle frames. */
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+    pointer-events: none;
 }
 
+.chatbot-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Sits just left of the button stack so it never covers page content. */
 .chatbot-window {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 24px;
+    right: 96px;
     width: 380px;
     height: 550px;
     max-height: 85vh;
     background: var(--bg-light);
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
     z-index: 10000;
@@ -89,9 +121,10 @@
 .chatbot-icon {
     width: 40px;
     height: 40px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     padding: 8px;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
 }
 
 .chatbot-header h4 {
@@ -111,7 +144,14 @@
     color: white;
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.3s;
+    transition: opacity 0.2s var(--ease);
+    /* Comfortable touch target */
+    min-width: 32px;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
 }
 
 .chatbot-close:hover {
@@ -203,10 +243,10 @@
     border: 1px solid var(--secondary-red);
     color: var(--secondary-red);
     padding: 10px 16px;
-    border-radius: 15px;
+    border-radius: var(--radius);
     font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
     font-family: var(--font-body);
     text-align: left;
     display: block;

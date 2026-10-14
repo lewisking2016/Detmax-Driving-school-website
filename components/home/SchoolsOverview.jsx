@@ -36,7 +36,7 @@ export default function SchoolsOverview() {
               <Link href="/computer-college" className="btn-outline-white" style={{ color: '#001F3F', borderColor: '#001F3F' }}>
                 Explore College Courses →
               </Link>
-              <Link href="/registration" className="btn btn-navy">
+              <Link href="/application" className="btn btn-navy">
                 Enroll Now
               </Link>
             </div>
@@ -61,7 +61,7 @@ export default function SchoolsOverview() {
               <Link href="/driving-school" className="btn-outline-white">
                 Driving Curriculum &amp; Fees →
               </Link>
-              <Link href="/registration" className="btn btn-primary">
+              <Link href="/application" className="btn btn-primary">
                 Book Driving Slot
               </Link>
             </div>

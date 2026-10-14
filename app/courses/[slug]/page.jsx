@@ -610,7 +610,7 @@ export default function CoursePage() {
                 </div>
               </div>
 
-              <Link href="/registration" className="btn btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', padding: '16px', fontSize: '1.05rem', borderRadius: '12px', marginBottom: '12px' }}>
+              <Link href="/application" className="btn btn-primary" style={{ width: '100%', textAlign: 'center', display: 'block', padding: '16px', fontSize: '1.05rem', borderRadius: '12px', marginBottom: '12px' }}>
                 Enroll Now in {course.title} →
               </Link>
               <a href="https://wa.me/254716894174?text=Hello%20Detmax,%20I%20have%20questions%20about%20the%20course" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px', fontSize: '0.95rem', borderRadius: '12px' }}>
@@ -706,7 +706,7 @@ export default function CoursePage() {
                 <h4 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--primary-navy)', marginBottom: '8px' }}>{opt.title}</h4>
                 <p style={{ fontSize: '2rem', fontWeight: 900, color: course.color, margin: '8px 0 12px' }}>{opt.price}</p>
                 <p style={{ fontSize: '0.92rem', color: '#64748B', marginBottom: '24px' }}>{opt.desc}</p>
-                <Link href="/registration" className="btn btn-primary" style={{ marginTop: 'auto', borderRadius: '10px', padding: '12px' }}>
+                <Link href="/application" className="btn btn-primary" style={{ marginTop: 'auto', borderRadius: '10px', padding: '12px' }}>
                   Select Plan →
                 </Link>
               </div>
@@ -723,7 +723,7 @@ export default function CoursePage() {
             Join smart learners across Kenya today. Gain verified skills with dedicated mentorship.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/registration" className="btn btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem', borderRadius: '100px' }}>
+            <Link href="/application" className="btn btn-primary" style={{ padding: '16px 36px', fontSize: '1.05rem', borderRadius: '100px' }}>
               Enroll Now — {course.price} →
             </Link>
             <a href="https://wa.me/254716894174" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '16px 32px', fontSize: '1.05rem', borderRadius: '100px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>

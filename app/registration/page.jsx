@@ -153,8 +153,9 @@ export default function Registration() {
 
                   <form onSubmit={handleSubmit}>
                     <div className="form-group-modern">
-                      <label>Full Legal Name *</label>
+                      <label htmlFor="fullName">Full Legal Name *</label>
                       <input
+                        id="fullName"
                         type="text"
                         name="fullName"
                         value={formData.fullName}
@@ -167,8 +168,9 @@ export default function Registration() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                       <div className="form-group-modern">
-                        <label>Email Address *</label>
+                        <label htmlFor="email">Email Address *</label>
                         <input
+                          id="email"
                           type="email"
                           name="email"
                           value={formData.email}
@@ -180,8 +182,9 @@ export default function Registration() {
                       </div>
 
                       <div className="form-group-modern">
-                        <label>Phone (M-Pesa) *</label>
+                        <label htmlFor="phone">Phone (M-Pesa) *</label>
                         <input
+                          id="phone"
                           type="tel"
                           name="phone"
                           value={formData.phone}
@@ -194,8 +197,9 @@ export default function Registration() {
                     </div>
 
                     <div className="form-group-modern">
-                      <label>Select Your Program *</label>
+                      <label htmlFor="course">Select Your Program *</label>
                       <select
+                        id="course"
                         name="course"
                         value={formData.course}
                         onChange={handleChange}
@@ -213,8 +217,9 @@ export default function Registration() {
                     </div>
 
                     <div className="form-group-modern">
-                      <label>County of Residence *</label>
+                      <label htmlFor="county">County of Residence *</label>
                       <input
+                        id="county"
                         type="text"
                         name="county"
                         value={formData.county}
@@ -227,8 +232,9 @@ export default function Registration() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                       <div className="form-group-modern">
-                        <label>Gender (Optional)</label>
+                        <label htmlFor="gender">Gender (Optional)</label>
                         <select
+                          id="gender"
                           name="gender"
                           value={formData.gender}
                           onChange={handleChange}
@@ -242,8 +248,9 @@ export default function Registration() {
                         </select>
                       </div>
                       <div className="form-group-modern">
-                        <label>Date of Birth (Optional)</label>
+                        <label htmlFor="dob">Date of Birth (Optional)</label>
                         <input
+                          id="dob"
                           type="date"
                           name="dob"
                           value={formData.dob}
@@ -255,8 +262,9 @@ export default function Registration() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                       <div className="form-group-modern">
-                        <label>Preferred Start Date</label>
+                        <label htmlFor="startDate">Preferred Start Date</label>
                         <input
+                          id="startDate"
                           type="date"
                           name="startDate"
                           value={formData.startDate}
@@ -265,8 +273,9 @@ export default function Registration() {
                         />
                       </div>
                       <div className="form-group-modern">
-                        <label>Schedule Preference</label>
+                        <label htmlFor="schedule">Schedule Preference</label>
                         <select
+                          id="schedule"
                           name="schedule"
                           value={formData.schedule}
                           onChange={handleChange}
@@ -285,8 +294,9 @@ export default function Registration() {
                     </div>
 
                     <div className="form-group-modern">
-                      <label>Referred By (Optional)</label>
+                      <label htmlFor="referredBy">Referred By (Optional)</label>
                       <input
+                        id="referredBy"
                         type="text"
                         name="referredBy"
                         value={formData.referredBy}
@@ -297,8 +307,9 @@ export default function Registration() {
                     </div>
 
                     <div className="form-group-modern">
-                      <label>Questions or Notes (Optional)</label>
+                      <label htmlFor="message">Questions or Notes (Optional)</label>
                       <textarea
+                        id="message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}

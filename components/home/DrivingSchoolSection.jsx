@@ -56,7 +56,7 @@ export default function DrivingSchoolSection() {
               <Link href="/driving-school" className="btn btn-secondary">
                 View 14-Lesson Curriculum →
               </Link>
-              <Link href="/registration" className="btn btn-primary">
+              <Link href="/application" className="btn btn-primary">
                 Book Driving Slot
               </Link>
             </div>

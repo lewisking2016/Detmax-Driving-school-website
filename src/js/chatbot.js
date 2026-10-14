@@ -63,21 +63,27 @@ export const initChatbotComponent = () => {
     </div>
 
     <!-- Chatbot Toggle Button -->
-    <button class="chatbot-toggle" id="chatbotToggle" title="Chat with Detmax AI">
-        <i data-lucide="bot"></i>
+    <button class="chatbot-toggle" id="chatbotToggle" title="Chat with Detmax AI" aria-label="Open the Detmax assistant">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
+        </svg>
     </button>
 
     <!-- Chatbot Window -->
     <div class="chatbot-window" id="chatbotWindow">
         <div class="chatbot-header">
             <div class="chatbot-header-info">
-                <i data-lucide="bot" class="chatbot-icon"></i>
+                <svg class="chatbot-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
+                </svg>
                 <div>
                     <h4>Detmax Assistant</h4>
                     <span>Select a topic to get answers</span>
                 </div>
             </div>
-            <button class="chatbot-close" id="chatbotClose"><i data-lucide="x"></i></button>
+            <button class="chatbot-close" id="chatbotClose" aria-label="Close the assistant">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
         </div>
         
         <div class="chatbot-messages" id="chatbotMessages">
@@ -93,7 +99,13 @@ export const initChatbotComponent = () => {
     </div>
     `;
 
-    document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+    // Mount the widget inside the floating action stack when it exists, so the
+    // chatbot button becomes a normal flow child of that column instead of a
+    // separately `position: fixed` button fighting the others for the corner.
+    // The chat window and tooltip are fixed/absolute, so nesting them here does
+    // not affect their placement.
+    const actionStack = document.querySelector('.floating-actions');
+    (actionStack || document.body).insertAdjacentHTML('beforeend', chatbotHTML);
 
     const toggleBtn = document.getElementById('chatbotToggle');
     const closeBtn = document.getElementById('chatbotClose');
@@ -159,15 +171,13 @@ export const initChatbotComponent = () => {
 
         const backBtn = document.createElement('button');
         backBtn.className = 'chat-chip back-chip';
-        backBtn.innerHTML = '<i data-lucide="arrow-left" style="width:14px;height:14px;margin-bottom:-2px;margin-right:4px;"></i> Back to Categories';
+        backBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:-2px;margin-right:6px" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to Categories';
         backBtn.addEventListener('click', () => {
             appendUserMessage("Show Categories");
             showCategories();
-            if (typeof lucide !== 'undefined') lucide.createIcons();
         });
         chatOptionsContainer.appendChild(backBtn);
-        
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+
         scrollToBottom();
     };
 
@@ -208,8 +218,5 @@ export const initChatbotComponent = () => {
         }
     }, 2000); // Popup 2 seconds after page load
 
-    // Initialize lucide icons for newly injected HTML
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
+    // Icons are inline SVG, so nothing to hydrate here.
 };

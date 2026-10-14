@@ -1,13 +1,18 @@
 import { Inter, Montserrat } from 'next/font/google'
 import '../src/css/style.css'
 import '../src/css/chatbot.css'
-import Script from 'next/script'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScriptInitializer from '@/components/ScriptInitializer'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-body' })
-const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-main' })
+// Both families ship as variable fonts, so the full weight range is available
+// (headings use 800) from one self-hosted file each - no external request.
+// The CSS token names deliberately differ from these custom-property names:
+// previously both were called --font-main/--font-body, so the hardcoded
+// families in style.css shadowed the optimised next/font faces and the site
+// ended up downloading Montserrat/Inter twice.
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
 
 export const metadata = {
   title: 'Detmax Driving School & Computer College | Elite Educational Excellence in Kenya',
@@ -30,10 +35,6 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <head>
         <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-        <Script src="https://unpkg.com/lucide@latest" strategy="afterInteractive" />
       </head>
       <body className="home-page">
         <div id="app">
